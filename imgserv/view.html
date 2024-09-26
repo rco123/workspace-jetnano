@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Camera Stream</title>
+</head>
+<body>
+    <h1>Camera Stream</h1>
+    <img id="camera_feed" src="" alt="Camera Feed" width="640" height="480" />
+
+    <script>
+        const ws = new WebSocket("ws://192.168.0.19:8765");
+
+        ws.onmessage = function(event) {
+            // 수신된 base64 이미지 데이터를 <img> 태그에 표시
+            document.getElementById('camera_feed').src = 'data:image/jpeg;base64,' + event.data;
+        };
+    </script>
+</body>
+</html>

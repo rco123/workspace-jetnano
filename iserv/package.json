@@ -1,0 +1,30 @@
+{
+  "name": "iserv",
+  "version": "1.0.0",
+  "bin": {
+    "app": "./app.js"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "build": "pkg . --targets node18-linux-arm64"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0",
+    "node-pty": "^0.10.1",
+    "request": "^2.88.2",
+    "sleep": "^6.3.0",
+    "ws": "^7.4.6",
+    "xterm": "^4.12.0",
+    "xterm-addon-attach": "^0.6.0"
+  },
+  "keywords": [],
+  "description": "",
+  "devDependencies": {
+    "pkg": "^5.7.0"
+  }
+}

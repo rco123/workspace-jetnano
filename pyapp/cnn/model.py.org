@@ -1,0 +1,151 @@
+
+def grayscale(img):
+    img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    return img
+def equalize(img):
+    img =cv2.equalizeHist(img)
+    return img
+def preprocessing(img):
+    img = grayscale(img)     
+    img = equalize(img)      
+    img = img/255            
+    return img
+
+
+X_train=X_train.reshape(X_train.shape[0],X_train.shape[1],X_train.shape[2],1)
+X_validation=X_validation.reshape(X_validation.shape[0],X_validation.shape[1],X_validation.shape[2],1)
+X_test=X_test.reshape(X_test.shape[0],X_test.shape[1],X_test.shape[2],1)
+
+
+def myModel():
+    model= Sequential()
+    model.add((Conv2D(60,(5,5),input_shape=(imageDimesions[0],imageDimesions[1],1),activation='relu')))  # ADDING MORE CONVOLUTION LAYERS = LESS FEATURES BUT CAN CAUSE ACCURACY TO INCREASE
+    model.add((Conv2D(60, (5,5), activation='relu')))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+ 
+    model.add((Conv2D(30, (3,3),activation='relu')))
+    model.add((Conv2D(30, (3,3), activation='relu')))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Dropout(0.5))
+ 
+    model.add(Flatten())
+    model.add(Dense(500,activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(noOfClasses,activation='softmax')) 
+    model.compile(Adam(lr=0.001),loss='categorical_crossentropy',metrics=['accuracy'])
+    return model
+
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class MyModel(nn.Module):
+    def __init__(self, num_classes):
+        super(MyModel, self).__init__()
+        # Convolution layers
+        self.conv1 = nn.Conv2d(1, 60, kernel_size=5, stride=1, padding=0)  # 1 input channel (grayscale), 60 output channels
+        self.conv2 = nn.Conv2d(60, 60, kernel_size=5, stride=1, padding=0)
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        self.conv3 = nn.Conv2d(60, 30, kernel_size=3, stride=1, padding=0)
+        self.conv4 = nn.Conv2d(30, 30, kernel_size=3, stride=1, padding=0)
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        # Dropout
+        self.dropout = nn.Dropout(0.5)
+
+        # Fully connected layers
+        self.fc1 = nn.Linear(30 * 4 * 4, 500)  # The input size needs to be calculated based on the output size after pooling
+        self.fc2 = nn.Linear(500, num_classes)  # Output layer for classification
+
+    def forward(self, x):
+        # Convolutional layers with activation and pooling
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = self.pool1(x)
+        
+        x = F.relu(self.conv3(x))
+        x = F.relu(self.conv4(x))
+        x = self.pool2(x)
+
+        # Flatten the tensor
+        x = x.view(x.size(0), -1)  # Flatten
+
+        # Fully connected layers with activation and dropout
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        x = self.fc2(x)
+
+        return F.softmax(x, dim=1)
+
+# Example usage
+num_classes = 10  # Change this based on your number of classes
+model = MyModel(num_classes)
+
+# Define optimizer and loss function
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+criterion = nn.CrossEntropyLoss()
+
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class MyModel(nn.Module):
+    def __init__(self, num_classes):
+        super(MyModel, self).__init__()
+        # Convolutional layers
+        self.conv1 = nn.Conv2d(1, 60, kernel_size=5, stride=1, padding=0)
+        self.conv2 = nn.Conv2d(60, 60, kernel_size=5, stride=1, padding=0)
+        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        self.conv3 = nn.Conv2d(60, 30, kernel_size=3, stride=1, padding=0)
+        self.conv4 = nn.Conv2d(30, 30, kernel_size=3, stride=1, padding=0)
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+
+        # Dropout
+        self.dropout = nn.Dropout(0.5)
+
+        # Linear layers (initialized with None, will be set dynamically)
+        self.fc1 = None
+        self.fc2 = nn.Linear(500, num_classes)  # Fixed number of output classes
+
+    def forward(self, x):
+        # Pass through convolutional layers
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = self.pool1(x)
+
+        x = F.relu(self.conv3(x))
+        x = F.relu(self.conv4(x))
+        x = self.pool2(x)
+
+        # Flatten the tensor
+        x = x.view(x.size(0), -1)  # Automatically calculate the size after pooling
+
+        # Dynamically create the first fully connected layer
+        if self.fc1 is None:
+            self.fc1 = nn.Linear(x.size(1), 500).to(x.device)  # Dynamically define based on input size
+
+        # Pass through fully connected layers
+        x = F.relu(self.fc1(x))
+        x = self.dropout(x)
+        x = self.fc2(x)
+
+        return F.softmax(x, dim=1)
+
+# Example usage
+num_classes = 10
+model = MyModel(num_classes)
+
+# Test with random input to verify dynamic size computation
+x = torch.randn(1, 1, 28, 28)  # Batch size of 1, grayscale image of size 28x28
+output = model(x)
+print(output)
+
+
+
+
+
+
