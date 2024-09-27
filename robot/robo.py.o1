@@ -1,0 +1,233 @@
+#!/usr/bin/python3
+
+
+import time
+from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
+import Adafruit_GPIO.I2C as I2C
+from smbus2 import SMBus  # I2C 버스를 열고 닫기 위한 smbus2 사용
+import fcntl  # 파일 잠금을 위한 fcntl 모듈
+
+import Jetson.GPIO as GPIO
+import signal
+
+
+# 잠금을 위한 파일 생성
+LOCK_FILE = "/tmp/i2c_bus_lock"
+# Jetson Nano에서는 I2C 버스를 직접 지정
+I2C.get_default_bus = lambda: 1  # i2c-1 버스를 사용
+
+
+# 파일 잠금 (I2C 버스 접근을 동기화하기 위한 방법)
+def acquire_lock(lockfile):
+    lockfile_handle = open(lockfile, "w")
+    fcntl.flock(lockfile_handle, fcntl.LOCK_EX)  # 배타적 잠금
+    return lockfile_handle
+
+# 파일 잠금 해제
+def release_lock(lockfile_handle):
+    fcntl.flock(lockfile_handle, fcntl.LOCK_UN)
+    lockfile_handle.close()
+
+
+# I2C 버스 열기 (smbus2 사용)
+def open_i2c_bus():
+    return SMBus(1)  # I2C 버스 1 (/dev/i2c-1)을 엽니다.
+
+# I2C 버스 닫기
+def close_i2c_bus(i2c_bus):
+    i2c_bus.close()
+
+
+
+class robot_control():
+
+    angle = 0
+    speed = 0
+
+    def __init__(self):
+
+        signal.signal(signal.SIGINT, self.sig_callback)
+        signal.signal(signal.SIGTERM, self.sig_callback)
+
+
+        # Motor HAT 객체 생성
+        self.mh = Adafruit_MotorHAT(addr=0x60)
+
+        # 모터 초기화
+        self.leftMotor = self.mh.getMotor(1)  # 좌측 모터
+        self.rightMotor = self.mh.getMotor(2)  # 우측 모터
+
+
+        self.last_call_time = 0
+        self.last_end_time = time.time()
+        self.end_time_passed = False
+
+
+    def stop(self):
+        mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+        mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+
+
+    # 모터 속도 및 방향 제어 함수
+    def move(self, angle, speed):
+
+        # 각도를 -45 ~ 45 사이로 제한
+        # speed -255 ~ 255 사이로 제한
+        angle = max(-45, min(45, angle))
+        speed = max(-255, min(255,speed))
+
+
+        # 기존 값과 ±5 차이가 나지 않으면 함수 종료
+        angle_diff_alpa = 5
+        if abs(angle - self.angle) <= angle_diff_alpa  and speed == self.speed:
+            return
+
+        self.angle = angle
+        self.speed = speed
+
+
+        if angle == 0 and speed == 0 :
+            self.mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+            self.mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+
+        if angle == 0 and speed > 0 :
+            self.leftMotor.run(Adafruit_MotorHAT.FORWARD)
+            self.leftMotor.run(Adafruit_MotorHAT.FORWARD)
+            self.rightMotor.setSpeed(abs(int(speed)))
+            self.rightMotor.setSpeed(abs(int(speed)))
+
+        if angle == 0 and speed < 0 :
+            self.leftMotor.run(Adafruit_MotorHAT.BACKWARD)
+            self.leftMotor.run(Adafruit_MotorHAT.BACKWARD)
+            self.rightMotor.setSpeed(abs(int(speed)))
+            self.rightMotor.setSpeed(abs(int(speed)))
+
+
+        if angle > 0 and speed > 0 : # left direction turn
+
+            self.leftMotor.run(Adafruit_MotorHAT.FORWARD)
+            self.leftMotor.run(Adafruit_MotorHAT.FORWARD)
+            self.leftMotor.setSpeed(abs(int(speed)))
+            self.rightMotor.setSpeed(abs(int(speed + angle))) # right motor value up
+
+        if angle < 0 and speed > 0 : # right direction turn
+
+            self.leftMotor.run(Adafruit_MotorHAT.FORWARD)
+            self.leftMotor.run(Adafruit_MotorHAT.FORWARD)
+            self.leftMotor.setSpeed(abs(int(speed)))
+            self.rightMotor.setSpeed(abs(int(speed + abs(angle)))) # left motor value up
+
+
+
+    def call_time(self,sec):
+        current_time = time.time()
+        if current_time - self.last_call_time > sec :
+            self.last_call_time = current_time
+            return True
+        else:
+            return False
+
+    def check_end_time(self,sec):
+        if self.end_time_passed:
+            return True  # 이미 시간이 지났으면 영원히 True 반환
+        current_time = time.time()
+        if current_time - self.last_end_time > sec:
+            self.end_time_passed = True  # 시간 간격이 지나면 플래그 설정
+            return True  # 첫 번째 체크에서만 True 반환
+        else:
+            return False  # 지정된 시간이 아직 지나지 않았으므로 False 반환
+
+    def reset_end_time(self):
+        self.last_end_time = time.time()  # 마지막 시간을 현재 시간으로 갱신
+        self.end_time_passed = False  # 시간이 지났는지 추적하는 플래그를 False로 재설정
+
+
+
+    def sig_callback(self, signal, frame):
+
+        print('sg Interrupted')
+        print('robo.cmd_stop')
+        self.stop()
+
+
+        time.sleep(0.1)
+        pid=os.getpid()
+        try:
+            self.cmd_stop()
+            os.system(f'kill -9 {pid}')
+            print('kill process')
+        except:
+            print('no process, robot')
+
+
+
+    def led_left(self, on_off, back=None):
+        try:
+            pin = 12
+            GPIO.setmode(GPIO.BOARD)
+            GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)  # set pin as an input pin
+
+            if on_off == 0 :
+                GPIO.output(pin, 0)
+            else:
+                GPIO.output(pin, 1)
+        finally:
+            GPIO.cleanup()
+
+
+    def led_right(self, on_off):
+        try:
+            pin = 11
+            GPIO.setmode(GPIO.BOARD)
+            GPIO.setup(pin, GPIO.OUT, initial=GPIO.LOW)  # set pin as an input pin
+            if on_off == 0 :
+                GPIO.output(pin, 0)
+            else:
+                GPIO.output(pin, 1)
+        finally:
+            GPIO.cleanup()
+
+
+    def beep(self):
+        try:
+            pin =  40
+            GPIO.setmode(GPIO.BOARD) # BOARD pin-numbering scheme
+            GPIO.setup(pin, GPIO.OUT) # button pin set as input
+            GPIO.output(pin, 1)
+        finally:
+            GPIO.output(pin, 0)
+            GPIO.cleanup()
+
+
+    def delay(self,s):
+        time.sleep(s)
+
+
+    def net_wifi(self):
+        cmd = "ifconfig wlan0"
+        os.system(cmd)   
+
+
+if __name__ == "__main__" :
+
+
+    robo = robot_control()
+
+    robo.move(0, 100)
+
+    robo.delay(1)
+
+    robo.stop()
+
+
+
+    
+
+
+
+
+
+
+
+
+
