@@ -1,0 +1,112 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+import sys
+import asyncio
+import time
+import cv2
+import numpy as np
+import SharedArray as sa
+import websockets
+from websockets import WebSocketServerProtocol
+
+# 공유 배열 생성: 첫 번째 요소는 플래그, 이후는 이미지 데이터
+check = sa.create("shm://pass", 640 * 360 * 3 + 1, np.uint8)
+check[0] = 0
+
+# 기본 이미지 로드
+pimage = cv2.imread('/home/jetson/workspace/setting/aicar.png', cv2.IMREAD_COLOR)
+
+if pimage is None:
+    raise FileNotFoundError("기본 이미지 'aicar.png'을(를) 찾을 수 없습니다.")
+default_frame = cv2.imencode('.jpg', pimage)[1].tobytes()
+print(f"기본 이미지 크기: {pimage.shape}")
+
+# 업데이트 타임아웃 설정 (초 단위)
+UPDATE_TIMEOUT = 10
+last_update_time = time.time()
+
+# 단일 클라이언트 연결 관리 변수
+connected = False
+client_ws: WebSocketServerProtocol = None
+
+# WebSocket 서버 주소 및 포트
+HOST = '0.0.0.0'
+PORT = 8765
+
+async def send_image_periodically():
+    global last_update_time, connected, client_ws
+
+    while True:
+        if connected and client_ws is not None:
+            current_time = time.time()
+
+            if check[0] == 1:
+                # 공유 메모리에서 이미지 데이터 추출
+                try:
+                    image_data = check[1:].reshape((360, 640, 3))
+                    ret, jpeg = cv2.imencode('.jpg', image_data)
+                    if ret:
+                        frame = jpeg.tobytes()
+                        await client_ws.send(frame)
+                        last_update_time = current_time
+                    check[0] = 0
+                except Exception as e:
+                    print(f"이미지 처리 또는 전송 오류: {e}")
+                    connected = False
+                    client_ws = None
+            else:
+                # 타임아웃 검사
+                if current_time - last_update_time > UPDATE_TIMEOUT:
+                    try:
+                        await client_ws.send(default_frame)
+                        last_update_time = current_time
+                    except Exception as e:
+                        print(f"기본 이미지 전송 오류: {e}")
+                        connected = False
+                        client_ws = None
+
+        await asyncio.sleep(1 / 30)  # 약 30 FPS
+
+async def handler(websocket: WebSocketServerProtocol, path: str):
+    global connected, client_ws, last_update_time
+
+    if connected:
+        # 이미 클라이언트가 연결되어 있는 경우 연결 거부
+        await websocket.close()
+        print("추가 클라이언트 연결 시도 거부됨.")
+        return
+
+    # 클라이언트 연결 수락
+    connected = True
+    client_ws = websocket
+    last_update_time = time.time()
+    print("클라이언트가 연결되었습니다.")
+
+    try:
+        # 클라이언트가 연결을 종료할 때까지 대기
+        await websocket.wait_closed()
+    except websockets.exceptions.ConnectionClosed as e:
+        print(f"클라이언트 연결 종료: {e}")
+    finally:
+        connected = False
+        client_ws = None
+        print("클라이언트 연결이 해제되었습니다.")
+
+async def main():
+    # WebSocket 서버 시작
+    server = await websockets.serve(handler, HOST, PORT)
+    print(f"WebSocket 서버가 {HOST}:{PORT}에서 실행 중입니다.")
+
+    # 이미지 전송 백그라운드 태스크 시작
+    asyncio.create_task(send_image_periodically())
+
+    # 서버가 종료되지 않도록 대기
+    await server.wait_closed()
+
+if __name__ == '__main__':
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("서버가 종료되었습니다.")
+
