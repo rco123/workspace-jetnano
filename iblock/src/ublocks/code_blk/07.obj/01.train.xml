@@ -1,0 +1,36 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_util_import" id="9EU;a:f9f.![Rt:[c~aq" x="-388" y="237">
+    <next>
+      <block type="fun_util_control" id="[mG.86(h^j|^w2Eq9rKg">
+        <next>
+          <block type="fun_util_set_data_dir" id="IAXQF`@=$0:91DXgXjS=">
+            <value name="NAME">
+              <block type="text" id="8PJFUsfThw_H5m!x]L+l">
+                <field name="TEXT">datasets/obj</field>
+              </block>
+            </value>
+            <next>
+              <block type="fun_util_train_obj_det_back" id="c8XH_p|qyH|MRMeju5AW">
+                <value name="batch">
+                  <block type="math_number" id="]bvdu6S;%4~|p{hnzEMC">
+                    <field name="NUM">4</field>
+                  </block>
+                </value>
+                <value name="epochs">
+                  <block type="math_number" id="t]TBpQ.!Kh-2D=x~t)D#">
+                    <field name="NUM">100</field>
+                  </block>
+                </value>
+                <value name="out">
+                  <block type="text" id="?jhPgshNg.*A;TpT8!WK">
+                    <field name="TEXT">models/obj_det.pt</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

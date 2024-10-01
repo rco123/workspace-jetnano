@@ -1,0 +1,21 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_mnist_import" id="]:J9!)(2^_L)HENSwn}u" x="-137" y="-338">
+    <next>
+      <block type="fun_mnist" id="#@I;MOrO=j-jAGr$vLV_">
+        <next>
+          <block type="fun_mnist_load_data" id="h{8;@(4Kfn({f[BI{|,@">
+            <next>
+              <block type="fun_mnist_dis_data" id="BiNk$J(1Z[Oud#_S_99I">
+                <value name="NAME">
+                  <block type="math_number" id="EH]qBu${Xx{qO]JA=f).">
+                    <field name="NUM">2</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

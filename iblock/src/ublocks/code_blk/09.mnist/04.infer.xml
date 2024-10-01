@@ -1,0 +1,67 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="ajzjP6[`#8.+oE2M5,uH">model</variable>
+    <variable id="{FHU4Nwqt8v~dV([~=HB">img</variable>
+    <variable id="%^Zao#92|+ZkZ08r]x?~">out</variable>
+  </variables>
+  <block type="fun_mnist_import" id="]:J9!)(2^_L)HENSwn}u" x="-263" y="-312">
+    <next>
+      <block type="fun_mnist" id="#@I;MOrO=j-jAGr$vLV_">
+        <next>
+          <block type="variables_set" id="Z=t(H*tO%v3rx4^Ik);x">
+            <field name="VAR" id="ajzjP6[`#8.+oE2M5,uH">model</field>
+            <value name="VALUE">
+              <block type="fun_mnist_load_model" id="NVT@%kMGxbq+_Z:NnZ,?">
+                <value name="NAME">
+                  <block type="text" id="-]b/qf/^mkYb=-]*tt45">
+                    <field name="TEXT">mnist.pt</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="=?Vi;|xQ8,o0IuDP3EED">
+                <field name="VAR" id="{FHU4Nwqt8v~dV([~=HB">img</field>
+                <value name="VALUE">
+                  <block type="fun_mnist_read_img" id="s(*;iA%hq*:}B2FXrX6T">
+                    <value name="NAME">
+                      <block type="text" id="HzAJ5[#YgxhI]b[wwe*.">
+                        <field name="TEXT">datasets/mnist/no4.jpg</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="%y#3*b4`9`$!.#FcN6p6">
+                    <field name="VAR" id="%^Zao#92|+ZkZ08r]x?~">out</field>
+                    <value name="VALUE">
+                      <block type="fun_mnist_model" id="AkG%|(1VOgGtcYE;P+;P">
+                        <value name="NAME">
+                          <block type="variables_get" id="opqo@lybr+G@%]0R^Bm+">
+                            <field name="VAR" id="{FHU4Nwqt8v~dV([~=HB">img</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="text_print" id="uZkDUBiGW+GwdUZ9`ay]">
+                        <value name="TEXT">
+                          <shadow type="text" id="#Tzmkac0}KGqAQ*Ji,#]">
+                            <field name="TEXT">abc</field>
+                          </shadow>
+                          <block type="fun_user_input" id="`UxHxCx}o`Pc1?yD7{nG">
+                            <field name="user_input">f"infer num = {out} "</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

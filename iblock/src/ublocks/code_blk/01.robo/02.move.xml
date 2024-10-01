@@ -1,0 +1,45 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_cam_import" id="er6uFrL8`QMtXZnp?hGX" x="-212" y="-88">
+    <next>
+      <block type="fun_robo_import" id="~x$XB~gGjw8[M]-^]|f+">
+        <next>
+          <block type="fun_robo_control" id="n@uD3-4$az]X?T;%#)2m">
+            <next>
+              <block type="controls_whileUntil" id="k$J~`GT_2zsj2kW$$pZv">
+                <field name="MODE">WHILE</field>
+                <value name="BOOL">
+                  <block type="logic_boolean" id="KZ%$0rE~Bt2AeY!jBv_u">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="fun_robo_move" id="O!:^GLzY}T8nM.LyKW8h">
+                    <value name="angle">
+                      <block type="math_number" id="*3nxVe~JFC=@8SVUterA">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <value name="speed">
+                      <block type="math_number" id="M]k,uvI*I7,$b,UyuuPe">
+                        <field name="NUM">600</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="fun_robo_delay" id="))n2tGrk%;bOL,qtG1,;">
+                        <value name="NAME">
+                          <block type="math_number" id="tEu:g,bln2cRL8Uzk7yK">
+                            <field name="NUM">0.01</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

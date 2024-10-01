@@ -1,0 +1,36 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_util_import" id="/vjFdpoW@g$,M#t-d;.i" x="-237" y="38">
+    <next>
+      <block type="fun_util_control" id="zQ$TG:CX2$5UG36|#KEs">
+        <next>
+          <block type="fun_util_set_data_dir" id="mhG!Rg]x~=hCc0{xk57*">
+            <value name="NAME">
+              <block type="text" id="PIvqQdkJB+fq/?:nd@wU">
+                <field name="TEXT">datasets/light</field>
+              </block>
+            </value>
+            <next>
+              <block type="fun_util_train_traffic_light_class" id="oO(k.yTxI2y6k[;~bH)L">
+                <value name="batch">
+                  <block type="math_number" id="#Tu=L#DA!q.YuQ5)c?`+">
+                    <field name="NUM">4</field>
+                  </block>
+                </value>
+                <value name="epochs">
+                  <block type="math_number" id="ZcrANNq!XBpPPmD#lLqW">
+                    <field name="NUM">120</field>
+                  </block>
+                </value>
+                <value name="out">
+                  <block type="text" id="}ypa0UT2bP4AnOEIilT]">
+                    <field name="TEXT">models/light_class.pt</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

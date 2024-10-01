@@ -1,0 +1,254 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="PA;hwm1352g]8]nRTHT1">cnt</variable>
+    <variable id="u]u)vR+l,zBPQBl:6xx/">img</variable>
+    <variable id="j;8T%G.%b1T{;s.KQPG0">speed</variable>
+    <variable id=";hMAr1-(TtU#y~l/=n(h">angle</variable>
+    <variable id="93D7Rg;eu$!hJy0Ks70w">call_time</variable>
+    <variable id="oZ[r*4*=iKMkr|=qxa9t">recall</variable>
+    <variable id="TIWfZ[:ZCHRvlxAlnYjw">fname</variable>
+  </variables>
+  <block type="fun_cam_import" id="OWV!6BSOB)F^o|:dEq%:" x="-162" y="-362">
+    <next>
+      <block type="fun_robo_import" id="EL]JT4i6]UNT~W0.zD}o">
+        <next>
+          <block type="fun_ps_import" id="``Aqnbl`bVBPEhzWyVST"></block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="fun_cam" id="Udx+jQM+I]d6?|gM[`3o" x="-163" y="-237">
+    <next>
+      <block type="fun_robo_control" id="p:[5yR)kxUQ]bMWUwab)">
+        <next>
+          <block type="fun_ps" id="k@)xQI;R^)s#+J(_J*Z{"></block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="variables_set" id="1R{!F30JI7j[2,SblKX@" x="-162" y="-112">
+    <field name="VAR" id="PA;hwm1352g]8]nRTHT1">cnt</field>
+    <value name="VALUE">
+      <block type="math_number" id="9UsbK**WH1)*lwyL^c~^">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+  </block>
+  <block type="controls_whileUntil" id="k$J~`GT_2zsj2kW$$pZv" x="-162" y="-37">
+    <field name="MODE">WHILE</field>
+    <value name="BOOL">
+      <block type="logic_boolean" id="KZ%$0rE~Bt2AeY!jBv_u">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="variables_set" id="qDZr{{nh.f{L@#-A)13l">
+        <field name="VAR" id="u]u)vR+l,zBPQBl:6xx/">img</field>
+        <value name="VALUE">
+          <block type="fun_cam_read_cam_img" id="]/dC{l{x/%MD]OlA.v9i"></block>
+        </value>
+        <next>
+          <block type="variables_set" id="uyEv%*G%6d94[a;3{+W.">
+            <field name="VAR" id="j;8T%G.%b1T{;s.KQPG0">speed</field>
+            <value name="VALUE">
+              <block type="fun_ps_read_speed" id="|lq3~iVXL6q%O34CpCgL"></block>
+            </value>
+            <next>
+              <block type="variables_set" id="1ap5WV7EtGd`w4}(@Y64">
+                <field name="VAR" id=";hMAr1-(TtU#y~l/=n(h">angle</field>
+                <value name="VALUE">
+                  <block type="fun_ps_read_angle" id="viusM-X;]d`;-;e^%VOl"></block>
+                </value>
+                <next>
+                  <block type="fun_cam_display_img_angle" id="B(_6(`~xi567{W8hDzzk">
+                    <value name="NAME">
+                      <block type="variables_get" id="?y?REAX=$at)kwBtjK9I">
+                        <field name="VAR" id="u]u)vR+l,zBPQBl:6xx/">img</field>
+                      </block>
+                    </value>
+                    <value name="angle">
+                      <block type="variables_get" id="m0(tSf!}[u|~{m$FyOw/">
+                        <field name="VAR" id=";hMAr1-(TtU#y~l/=n(h">angle</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="1[1!^#jG7Nu;eYo-hETb">
+                        <mutation elseif="1" else="1"></mutation>
+                        <value name="IF0">
+                          <block type="logic_compare" id="INiKy$ANdtFkcTrwM=w;">
+                            <field name="OP">GTE</field>
+                            <value name="A">
+                              <block type="variables_get" id="^{!%vqQ{[tGGikgdv?Zj">
+                                <field name="VAR" id=";hMAr1-(TtU#y~l/=n(h">angle</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="{*399N!~hE}3G2q,P_}O">
+                                <field name="NUM">100</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="variables_set" id="{~H*brUG:Zpyo=OHVd$7">
+                            <field name="VAR" id="93D7Rg;eu$!hJy0Ks70w">call_time</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="??=s=3EIcK[$fxLB_^k7">
+                                <field name="NUM">0.2</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <value name="IF1">
+                          <block type="logic_compare" id="2dJ#^s_:P;}qU`!PAt^Z">
+                            <field name="OP">LTE</field>
+                            <value name="A">
+                              <block type="variables_get" id="4HCdgK4i!QIei$9fE8(G">
+                                <field name="VAR" id=";hMAr1-(TtU#y~l/=n(h">angle</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="Tgf^[e{`~^R|h5ilM5F;">
+                                <field name="NUM">-100</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO1">
+                          <block type="variables_set" id="W%}B$:/M@ya1m=t^TGjd">
+                            <field name="VAR" id="93D7Rg;eu$!hJy0Ks70w">call_time</field>
+                            <value name="VALUE">
+                              <block type="math_number" id=":+K*ecRPt#(g+86[s;,Z">
+                                <field name="NUM">0.2</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <statement name="ELSE">
+                          <block type="variables_set" id="E9?ZCt*gvh13lb}sD8+o">
+                            <field name="VAR" id="93D7Rg;eu$!hJy0Ks70w">call_time</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="B4VOQh6~]1{UdzAcAq0c">
+                                <field name="NUM">0.5</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="variables_set" id="31qy@o8`sU_1J1S[r{)[">
+                            <field name="VAR" id="oZ[r*4*=iKMkr|=qxa9t">recall</field>
+                            <value name="VALUE">
+                              <block type="fun_ps_call_time" id=")P]5fN_exn7`}!CQ}v^?">
+                                <value name="NAME">
+                                  <block type="variables_get" id="bkC#LGnhF$EsmnqQ(6cb">
+                                    <field name="VAR" id="93D7Rg;eu$!hJy0Ks70w">call_time</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="controls_if" id="OAa`BvOvh,3nVY.~XV*1">
+                                <value name="IF0">
+                                  <block type="logic_operation" id="Oh]4xc#oSxmkWlE{Q-Hg">
+                                    <field name="OP">AND</field>
+                                    <value name="A">
+                                      <block type="variables_get" id="!;+.$O)%ml[XBzD@Rrr.">
+                                        <field name="VAR" id="oZ[r*4*=iKMkr|=qxa9t">recall</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get" id="Pr?Gy]M|*+`v(1b}I^$L">
+                                        <field name="VAR" id="j;8T%G.%b1T{;s.KQPG0">speed</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="variables_set" id="C4?,s/}`e~-m33KG(bU=">
+                                    <field name="VAR" id="TIWfZ[:ZCHRvlxAlnYjw">fname</field>
+                                    <value name="VALUE">
+                                      <block type="fun_user_input" id="H,?y/$R)|mP1:Rd4d~G3">
+                                        <field name="user_input">f'{cnt:03d}_{angle:03d}.jpg'</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="text_print" id=".+7=:XiWPK/8OH.p[-Ft">
+                                        <value name="TEXT">
+                                          <shadow type="text" id="56Y{R1x_Fd?Kd@ZSkNSg">
+                                            <field name="TEXT">abc</field>
+                                          </shadow>
+                                          <block type="variables_get" id="yaAHVVR-:1as6+ce6a`f">
+                                            <field name="VAR" id="TIWfZ[:ZCHRvlxAlnYjw">fname</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="fun_cam_img_write_2" id="uM1g,pOPoH!Fxc[==(b}">
+                                            <value name="file">
+                                              <block type="variables_get" id="8wf8.(oa`JxBH~itB$|G">
+                                                <field name="VAR" id="TIWfZ[:ZCHRvlxAlnYjw">fname</field>
+                                              </block>
+                                            </value>
+                                            <value name="dir">
+                                              <block type="text" id="|8RI78W6=+TVn3:D{*25">
+                                                <field name="TEXT">lanes/lane_x/net</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="variables_set" id="*$D9,,kcr_ptG8`BmMzq">
+                                                <field name="VAR" id="PA;hwm1352g]8]nRTHT1">cnt</field>
+                                                <value name="VALUE">
+                                                  <block type="math_arithmetic" id="x}HeJ@QrDpMRS277^~=Z">
+                                                    <field name="OP">ADD</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get" id="K9f-2SCZ)fV:T~xsVC2A">
+                                                        <field name="VAR" id="PA;hwm1352g]8]nRTHT1">cnt</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number" id="Hkuw)N;XrSVm|#].%Fbw">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="fun_robo_move" id="-9pw3,J:#o?Xy6_!UdEs">
+                                    <value name="angle">
+                                      <block type="variables_get" id="W@_DfNUzc!S!M}$~ddh.">
+                                        <field name="VAR" id=";hMAr1-(TtU#y~l/=n(h">angle</field>
+                                      </block>
+                                    </value>
+                                    <value name="speed">
+                                      <block type="variables_get" id="fD+~`./mZ:0uMk!n{:fX">
+                                        <field name="VAR" id="j;8T%G.%b1T{;s.KQPG0">speed</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

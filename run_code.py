@@ -1,0 +1,1 @@
+cam.display_img()

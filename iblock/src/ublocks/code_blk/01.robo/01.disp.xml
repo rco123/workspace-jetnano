@@ -1,0 +1,47 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="a1P-E#OvQdIHR@AOU!^A">img</variable>
+  </variables>
+  <block type="fun_cam_import" id=".wu{Xo{=R@MX.:cU8aqd" x="-238" y="-88">
+    <next>
+      <block type="fun_cam" id="*%pHB5l`1_xi~A~lWaVq"></block>
+    </next>
+  </block>
+  <block type="controls_whileUntil" id="TZKlH@;CDiM1bth[Rb]u" x="-238" y="12">
+    <field name="MODE">WHILE</field>
+    <value name="BOOL">
+      <block type="logic_boolean" id="Y!`u~KK#Pn3J3Q5bAAa#">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="variables_set" id="}LNjz+qwm}ku:SLE[bxO">
+        <field name="VAR" id="a1P-E#OvQdIHR@AOU!^A">img</field>
+        <value name="VALUE">
+          <block type="fun_cam_read_cam_img" id="PpF,wexVzvPz#R`gAe2h"></block>
+        </value>
+        <next>
+          <block type="text_print" id="9QGPc_?JLA^lhWZK~e8f">
+            <value name="TEXT">
+              <shadow type="text" id="+0^wgMfxXMusr+{#6dI!">
+                <field name="TEXT">abc</field>
+              </shadow>
+              <block type="fun_user_input" id="urK?6%OSk%,zKY[sV%F/">
+                <field name="user_input">img.shape</field>
+              </block>
+            </value>
+            <next>
+              <block type="fun_cam_img_display" id="|6OIQlt//1_ea7wum.es">
+                <value name="NAME">
+                  <block type="variables_get" id="XP34r0z~(p{n|WLaRfFD">
+                    <field name="VAR" id="a1P-E#OvQdIHR@AOU!^A">img</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

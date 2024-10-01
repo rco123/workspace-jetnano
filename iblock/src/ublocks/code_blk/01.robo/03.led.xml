@@ -1,0 +1,51 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_robo_import" id="oW[zf;KxgMB,x`Tf_rrX" x="-163" y="-12">
+    <next>
+      <block type="fun_robo_control" id="W[0V^bFv+l(,_dgvF:WU"></block>
+    </next>
+  </block>
+  <block type="controls_whileUntil" id="8xDXP:JK{6Ci=VDN;YEc" x="-113" y="88">
+    <field name="MODE">WHILE</field>
+    <value name="BOOL">
+      <block type="logic_boolean" id="suDma2G+obTeE4_`=1wj">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="fun_robo_led_left" id="he^wT#Lj~H|!S)Q%_sFf">
+        <value name="NAME">
+          <block type="math_number" id="[$?3HS,Iu8G~XKo$=yh=">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <next>
+          <block type="fun_robo_delay" id="BQ-;_oDLcKK?3s-|AS5j">
+            <value name="NAME">
+              <block type="math_number" id="[^pv0f:|}AvH|m[z}XKY">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <next>
+              <block type="fun_robo_led_left" id="{+WO[5Bs!4XVa2o|i[{|">
+                <value name="NAME">
+                  <block type="math_number" id="*.c`I6oxPlR9]1sh!b*`">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="fun_robo_delay" id=";-`R{@pyew.jry`3-)m`">
+                    <value name="NAME">
+                      <block type="math_number" id="DI:kt$}23ib[gXlqCi^;">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -1,0 +1,130 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="ppm3P=mTgt$5(vlGYl%C">img</variable>
+    <variable id="sLk]8I~+-h7JOkvUA)JB">rtn</variable>
+    <variable id="EM(+Zi3U/+dn_M3m*Aw5">dimg</variable>
+  </variables>
+  <block type="fun_robo_import" id="xe#/$+_{N=1EZi=]PbhM" x="-288" y="-238">
+    <next>
+      <block type="fun_cam_import" id="y~2imJwZw@P{U62fCfTw">
+        <next>
+          <block type="fun_ai_import" id="i`d(h(~M--!Fo=64ud?]"></block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="fun_ai_control" id="oYGt4lp-$`hj.lgWK!|r" x="-287" y="-112">
+    <next>
+      <block type="fun_cam" id="Zf3pUm`.G]EfMOaZE1aR">
+        <next>
+          <block type="fun_robo_control" id="oF|TUw7;)kzKz{{*mXRC"></block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="fun_ai_traffic_light_det_load_model" id="ut97dXP-)aWp5Ai:xj:j" x="-287" y="12">
+    <value name="NAME">
+      <block type="text" id="O@E6_/p.IgLVVSLUcm1v">
+        <field name="TEXT">models/light_det.pt</field>
+      </block>
+    </value>
+    <next>
+      <block type="controls_whileUntil" id="5Ve|Vj[o{,BM_Hkbx`Um">
+        <field name="MODE">WHILE</field>
+        <value name="BOOL">
+          <block type="logic_boolean" id="BL5Wo/.~yL@=+@OSoY_j">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="variables_set" id="p2iCE9BD5hS[?ENMPl0~">
+            <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+            <value name="VALUE">
+              <block type="fun_cam_cam_img_read" id="BvnH_bKb`0t8+q2S8j.I"></block>
+            </value>
+            <next>
+              <block type="variables_set" id="?ZmWV{/{Nc##ll(`adP.">
+                <field name="VAR" id="sLk]8I~+-h7JOkvUA)JB">rtn</field>
+                <value name="VALUE">
+                  <block type="fun_ai_traffic_light_det_det" id="~e7#lQ[s5^Fr.RTnW)*k">
+                    <value name="NAME">
+                      <block type="variables_get" id="rr3jDjsQ)t.!gqbCHwXx">
+                        <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="text_print" id="m][s`yn=pyIOb?d~oOQy">
+                    <value name="TEXT">
+                      <shadow type="text" id="|q0y.0L_W6KkqUbB=,f}">
+                        <field name="TEXT">abc</field>
+                      </shadow>
+                      <block type="variables_get" id="ASHlWz:BGPLNgP)3D[48">
+                        <field name="VAR" id="sLk]8I~+-h7JOkvUA)JB">rtn</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="-u~djge4SQ~D!7A?LL(?">
+                        <mutation else="1"></mutation>
+                        <value name="IF0">
+                          <block type="variables_get" id="Ir#J:7VZ*]{eLH[?1uOO">
+                            <field name="VAR" id="sLk]8I~+-h7JOkvUA)JB">rtn</field>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="variables_set" id="~OBb@{vrh=`47XCNP1s7">
+                            <field name="VAR" id="EM(+Zi3U/+dn_M3m*Aw5">dimg</field>
+                            <value name="VALUE">
+                              <block type="fun_ai_traffic_light_det_box_img" id="@ILA.Hg{1q#vf=,0xQz("></block>
+                            </value>
+                            <next>
+                              <block type="fun_cam_img_display" id="+:O;GsKzzEgSTS~=Sns+">
+                                <value name="NAME">
+                                  <block type="variables_get" id="/|0en6!_[MgcE#r:H($w">
+                                    <field name="VAR" id="EM(+Zi3U/+dn_M3m*Aw5">dimg</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="fun_robo_delay" id="}2s9rv[R|DSI.W.mZ5hQ">
+                                    <value name="NAME">
+                                      <block type="math_number" id="K3cKs9Y0|IV{W{mgDup0">
+                                        <field name="NUM">0.01</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <statement name="ELSE">
+                          <block type="fun_cam_img_display" id="~VUaMC)O~}L0QD:BQAb_">
+                            <value name="NAME">
+                              <block type="variables_get" id="fhAkh?@bWKX=?y;/rN|.">
+                                <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="fun_robo_delay" id="+19BZ)KSp*iBX5v,UARm">
+                            <value name="NAME">
+                              <block type="math_number" id="^^,nB*/*5$Up~oNlPRk}">
+                                <field name="NUM">0.01</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>

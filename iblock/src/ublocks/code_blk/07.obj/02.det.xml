@@ -1,0 +1,189 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="ppm3P=mTgt$5(vlGYl%C">img</variable>
+    <variable id="sLk]8I~+-h7JOkvUA)JB">rtn</variable>
+    <variable id="L)9Y!Cvw?GxhM(DL0YI!">cls</variable>
+  </variables>
+  <block type="fun_robo_import" id="xe#/$+_{N=1EZi=]PbhM" x="-338" y="62">
+    <next>
+      <block type="fun_cam_import" id="y~2imJwZw@P{U62fCfTw">
+        <next>
+          <block type="fun_ai_import" id="i`d(h(~M--!Fo=64ud?]">
+            <next>
+              <block type="fun_ai_control" id="oYGt4lp-$`hj.lgWK!|r">
+                <next>
+                  <block type="fun_cam" id="Zf3pUm`.G]EfMOaZE1aR">
+                    <next>
+                      <block type="fun_robo_control" id="oF|TUw7;)kzKz{{*mXRC">
+                        <next>
+                          <block type="fun_ai_obj_det_back_load_model" id="3(oFxt-p`Y15a9zE#/;S">
+                            <value name="NAME">
+                              <block type="text" id=";hmS5~2Ehl[?E!dQ.q|W">
+                                <field name="TEXT">models/obj_det.pt</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+  <block type="controls_whileUntil" id=";fZz`%!2CA7io1eRtVn[" x="-338" y="337">
+    <field name="MODE">WHILE</field>
+    <value name="BOOL">
+      <block type="logic_boolean" id="fekBJhy0TKPqbR7mn5_B">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="variables_set" id="x@}ta3[AFmj=yp$*O]=g">
+        <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+        <value name="VALUE">
+          <block type="fun_cam_cam_img_read" id="Pe|*p3;`p_w)-z/K$l=i"></block>
+        </value>
+        <next>
+          <block type="variables_set" id="%QMLePATiBMcwY^6aYFY">
+            <field name="VAR" id="sLk]8I~+-h7JOkvUA)JB">rtn</field>
+            <value name="VALUE">
+              <block type="fun_ai_obj_det_back_det" id="mr-a?cvR0{n@ilh+]lX0">
+                <value name="NAME">
+                  <block type="variables_get" id="6n7H*.vkrAx{GcoH5;X7">
+                    <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="text_print" id="9CEdGP0d@^},H_v*^t3h">
+                <value name="TEXT">
+                  <shadow type="text" id="y5kIyJ5I^mnHRQ^0b2U5">
+                    <field name="TEXT">abc</field>
+                  </shadow>
+                  <block type="variables_get" id="8u4CP/#%-04Yd:u9,nZs">
+                    <field name="VAR" id="sLk]8I~+-h7JOkvUA)JB">rtn</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" id="K_!jQLHV3ys8jpC60AlM">
+                    <value name="IF0">
+                      <block type="variables_get" id="Y^L!M]k.8ql8*y1)!dgI">
+                        <field name="VAR" id="sLk]8I~+-h7JOkvUA)JB">rtn</field>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="variables_set" id="~L6JL1z3_HGCO-Fh#xmy">
+                        <field name="VAR" id="L)9Y!Cvw?GxhM(DL0YI!">cls</field>
+                        <value name="VALUE">
+                          <block type="fun_ai_obj_det_back_get_class" id="`r|%Lrs1ty#R)(BUkiUS"></block>
+                        </value>
+                        <next>
+                          <block type="text_print" id="x$:Zy.0Gx@4iNS=AYG0+">
+                            <value name="TEXT">
+                              <shadow type="text">
+                                <field name="TEXT">abc</field>
+                              </shadow>
+                              <block type="variables_get" id="@^8Ym}1nJt(*yi_j8zxG">
+                                <field name="VAR" id="L)9Y!Cvw?GxhM(DL0YI!">cls</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="controls_if" id="FrjWQ-plpty!.,fN}zlq">
+                                <value name="IF0">
+                                  <block type="fun_user_input" id="]?1Dq6(uiMhZCy$gT~p/">
+                                    <field name="user_input">"car" in cls</field>
+                                  </block>
+                                </value>
+                                <statement name="DO0">
+                                  <block type="text_print" id="6n~z+h)^!K;[]7*`M8BB">
+                                    <value name="TEXT">
+                                      <shadow type="text" id="EI8INJ]I2m)=xKkZ]#5O">
+                                        <field name="TEXT">abc</field>
+                                      </shadow>
+                                      <block type="text" id="T]:ycdpXft@MT~9-weLc">
+                                        <field name="TEXT">car</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="controls_if" id="Jm_sG!Vzo,~Fm`r_Y[5N">
+                                    <value name="IF0">
+                                      <block type="fun_user_input" id="GFACb%J~drn[g2vn0W[V">
+                                        <field name="user_input">"person" in cls</field>
+                                      </block>
+                                    </value>
+                                    <statement name="DO0">
+                                      <block type="text_print" id=").1d;tl}O~uS+JfE(WSF">
+                                        <value name="TEXT">
+                                          <shadow type="text">
+                                            <field name="TEXT">abc</field>
+                                          </shadow>
+                                          <block type="text" id="e@SQv*FO:;8,%?LG:xp!">
+                                            <field name="TEXT">person</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="controls_if" id="H0W?Ecmt(YAISptk`W`3">
+                                        <value name="IF0">
+                                          <block type="fun_user_input" id="%,Rt]nSmeKi%0)8pCgcE">
+                                            <field name="user_input">"dog" in cls</field>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="text_print" id="`2yEsA-J4IA=7f%ZIz(n">
+                                            <value name="TEXT">
+                                              <shadow type="text">
+                                                <field name="TEXT">abc</field>
+                                              </shadow>
+                                              <block type="text" id="~#d;`JI*I!Q;yY368zT)">
+                                                <field name="TEXT">dog</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="variables_set" id="~OBb@{vrh=`47XCNP1s7">
+                        <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+                        <value name="VALUE">
+                          <block type="fun_ai_obj_det_back_box_img" id="biL)EwHsbHZ.P-jGJ:R^"></block>
+                        </value>
+                        <next>
+                          <block type="fun_cam_img_display" id="+:O;GsKzzEgSTS~=Sns+">
+                            <value name="NAME">
+                              <block type="variables_get" id="/|0en6!_[MgcE#r:H($w">
+                                <field name="VAR" id="ppm3P=mTgt$5(vlGYl%C">img</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
