@@ -1,0 +1,159 @@
+
+#upperBar {
+    display: flex;  /* Flexbox 모델 적용 */
+    align-items: center;  /* 수직 방향 중앙 정렬 */
+    justify-content: space-between;  /* 내부 요소 사이에 공간을 균등하게 배분 */
+}
+
+#ipName {
+    text-align: center;
+    padding: 10px 20px; /* 동일한 패딩 */
+    margin: 10px; /* 일정한 여백 */
+}    
+
+#connButton, #dirsList {
+    display: flex;  /* Flexbox 모델 적용 */
+    align-items: center;  /* 수직 방향 중앙 정렬 */
+    flex-wrap: nowrap;  /* 요소들이 줄바꿈 없이 한 줄에 배열되도록 설정 */
+    padding: auto;
+    margin: 5px;
+}
+
+.bar-button, input[type="text"]#dirName {
+    background-color: #f0f0f0; /* 버튼과 동일한 배경 색상 */
+    border: none; /* 테두리 제거 */
+    color: #333; /* 동일한 텍스트 색상 */
+    padding: 10px 20px; /* 동일한 패딩 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    width: 100%; /* 부모 컨테이너의 전체 너비 사용 */
+    cursor: text; /* 텍스트 입력 가능 표시 */
+    font-size: 12px; /* 동일한 폰트 크기 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 동일한 그림자 효과 */
+    display: block; /* 블록 레벨 요소로 표시 */
+    margin: 10px; /* 일정한 여백 */
+}
+
+.bar-button {
+    cursor: pointer; /* 버튼에는 포인터 커서 적용 */
+    margin-top: 10px; /* 버튼 상단 여백 조정 */
+}
+
+input[type="text"]#dirName {
+    background-color: #dd81817c; /* 버튼과 동일한 배경 색상 */
+    border: none; /* 테두리 제거 */
+}
+
+#image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    padding: 0px;
+    justify-content: center;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.image {
+    width: 150px;
+    height: 70px; /* Adjust height based on your preference */
+    background-size: cover;
+    background-position: center;
+}
+
+.image-label {
+    width: 150px;
+    height: 20px;
+    padding: 0px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.image-label-button {
+    background-color: #f0f0f0; /* 버튼 배경 색상 */
+    border: none; /* 테두리 제거 */
+    color: #333; /* 텍스트 색상 */
+    padding: 10px 20px; /* 패딩 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    width: 100%; /* 부모 컨테이너의 전체 너비 */
+    cursor: pointer; /* 마우스 오버 시 포인터 표시 */
+    font-size: 10px; /* 폰트 크기 */
+    margin-top: 0px; /* 상단 여백 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 그림자 효과 */
+}
+
+.image-label-buttonA {
+    background-color: #f0f0f0; /* 버튼 배경 색상 */
+    border: none; /* 테두리 제거 */
+    color: #333; /* 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    width: 90%; /* 부모 컨테이너의 전체 너비 */
+    height: 20px;
+    cursor: pointer; /* 마우스 오버 시 포인터 표시 */
+    font-size: 10px; /* 폰트 크기 */
+    margin-top: 0px; /* 상단 여백 */
+    margin-right: 1px;
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); 그림자 효과 */
+}
+
+.image-label-buttonB {
+    background-color: #f0f0f0; /* 버튼 배경 색상 */
+    border: none; /* 테두리 생성 및 색상 지정 */
+    color: #ee3838; /* 텍스트 색상 */
+    text-align: left; /* 텍스트 중앙 정렬 */
+    width: 10%; /* 부모 컨테이너의 전체 너비 */
+    height: 20px;
+    cursor: default; /* 마우스 오버 시 포인터 표시 */
+    font-size: 10px; /* 폰트 크기 */
+    margin-top: 0px; /* 상단 여백 */
+    padding: 2px;
+    font-weight: bold;
+    content: "X";
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); 그림자 효과 */
+}
+
+
+.image-label-buttonB:hover {
+    background-color: #ccc; /* 마우스 오버 시 배경색 변경 */
+}
+
+
+.separator {
+  width: 1px; /* 줄의 너비 */
+  background-color: #bdb8b8; /* 줄의 색상 */
+  height: 20px; /* 버튼 높이에 맞추기 */
+}
+
+
+.image-label-button:hover {
+    background-color: #e0e0e0; /* 호버 시 배경 색상 변경 */
+}
+
+
+hr {
+  height: 3px;
+  background-color: green;
+  border: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+    font-size: 12px;
+    color: #333;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    width: 200px;
+  }
+
