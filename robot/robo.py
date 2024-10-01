@@ -404,9 +404,131 @@ class robot_control:
     def delay(self, s):
         time.sleep(s)
 
-    def net_wifi(self):
-        cmd = "ifconfig wlan0"
-        os.system(cmd)
+
+
+    def get_ip(self, dev="wlan0"):
+
+        import subprocess
+
+        # nmcli 명령어로 네트워크 정보 가져오기
+        command = ["sudo" , "nmcli", "-f", "IP4.ADDRESS", "device", "show", dev]
+
+        try:
+            result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            
+            # IP 주소 추출
+            for line in result.stdout.splitlines():
+                if "IP4.ADDRESS" in line:
+                    ip_address = line.split()[1]  # IP 주소 부분만 추출
+                    print(f"=> Now {dev} IP Address: {ip_address}")
+                    break
+        except subprocess.CalledProcessError as e:
+            print("Error occurred:", e.stderr)
+
+    def list_ap(self): 
+
+        import subprocess
+
+        try:
+            # nmcli 명령 실행
+            result = subprocess.run(["nmcli", "device", "wifi", "list"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+            # 결과에서 첫 번째 열(MAC 주소) 제거
+            lines = result.stdout.splitlines()
+            for line in lines:
+                # 각 줄의 첫 번째 단어(MAC 주소)를 제거
+                parts = line.split()
+                print(" ".join(parts[1:]))  # 첫 번째 항목을 제외하고 출력
+
+        except subprocess.CalledProcessError as e:
+            print("Error occurred:", e.stderr)
+
+
+
+    def conn_ap(self, ssid, pw=""):
+
+        import subprocess
+
+
+        # 2. Hotspot 연결 중지
+#        try:
+#            subprocess.run(["sudo", "nmcli", "con", "down", "Hotspot"], check=True)
+#            print("Hotspot has been brought down.")
+#        except subprocess.CalledProcessError as e:
+#            print("Error stopping Hotspot:", e.stderr)
+#
+
+        # nmcli 명령어 생성
+        command = ["sudo", "nmcli", "device", "disconnect", "wlan0" ]
+        # 명령어 실행
+        try:
+            result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            print("Connection successful:", result.stdout)
+        except subprocess.CalledProcessError as e:
+            print("Error occurred:", e.stderr)
+
+
+        if pw == "":
+            # nmcli 명령어 생성
+            command = ["sudo", "nmcli", "device", "wifi", "connect", ssid ]
+        else:
+            command = ["sudo", "nmcli", "device", "wifi", "connect", ssid, "password", pw]
+
+        # 명령어 실행
+        try:
+            result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            print("Connection successful:", result.stdout)
+        except subprocess.CalledProcessError as e:
+            print("Error occurred:", e.stderr)
+
+
+    def set_hotspot(self, ipaddr="192.168.5.1"):
+        
+        import subprocess
+
+        try:
+
+            # nmcli 명령어 생성
+            command = ["sudo", "nmcli", "device", "connect", "wlan0" ]
+            # 명령어 실행
+            try:
+                result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                print("Connection successful:", result.stdout)
+            except subprocess.CalledProcessError as e:
+                print("Error occurred:", e.stderr)
+
+
+            # 2. Hotspot 연결 중지
+            #subprocess.run(["sudo", "nmcli", "con", "down", "Hotspot"], check=True)
+            #print("Hotspot has been brought down.")
+
+            # 인터페이스를 wlan0으로 명시
+            subprocess.run(["sudo", "nmcli", "connection", "modify", "Hotspot", "connection.interface-name", "wlan0"], check=True)
+            print("Hotspot interface set to wlan0.")
+
+            time.sleep(1)
+
+            # 3. IPv4 주소 설정
+            subprocess.run(["sudo", "nmcli", "connection", "modify", "Hotspot", "ipv4.addresses", f"{ipaddr}/24"], check=True)
+            print("IPv4 address set to 192.168.5.1/24.")
+
+            # 4. 게이트웨이 설정
+            subprocess.run(["sudo", "nmcli", "connection", "modify", "Hotspot", "ipv4.gateway", f"{ipaddr}"], check=True)
+            print(f"IPv4 gateway set to {ipaddr}.")
+
+            # 5. 수동 IP 설정
+            subprocess.run(["sudo", "nmcli", "connection", "modify", "Hotspot", "ipv4.method", "shared"], check=True)
+            print("IP method set to manual.")
+
+            # 6. Hotspot 연결 다시 활성화
+            subprocess.run(["sudo", "nmcli", "con", "up", "Hotspot", "ifname", "wlan0"], check=True)
+            print("Hotspot has been brought up.")
+            time.sleep(5)
+
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred: {e.stderr}")
+
+
 
         
 # 클래스 외부에 위치해야 합니다.
