@@ -19,54 +19,57 @@ let demoWorkspace
 import { xml_basic_head, xml_basic_tail } from './ublocks/xml_basic.js'
 import { robo_blk_xml_head, robo_blk_xml_tail } from './ublocks/robo_blk/robo_blk.js'
 
-import { fun_ai_xml } from "./ublocks/robo_blk/ai/fun_ai.js"
-import "./ublocks/robo_blk/ai/fun_ai_lane.js"
-import "./ublocks/robo_blk/ai/fun_ai_dir.js"
-import "./ublocks/robo_blk/ai/fun_ai_light.js"
-import "./ublocks/robo_blk/ai/fun_ai_sign.js"
-import "./ublocks/robo_blk/ai/fun_ai_obj.js"
-import "./ublocks/robo_blk/ai/fun_ai_coco.js"
-import "./ublocks/robo_blk/ai/fun_ai_mark.js"
+// import { fun_ai_xml } from "./ublocks/robo_blk/ai/fun_ai.js"
+// import "./ublocks/robo_blk/ai/fun_ai_lane.js"
+// import "./ublocks/robo_blk/ai/fun_ai_dir.js"
+// import "./ublocks/robo_blk/ai/fun_ai_light.js"
+// import "./ublocks/robo_blk/ai/fun_ai_sign.js"
+// import "./ublocks/robo_blk/ai/fun_ai_obj.js"
+// import "./ublocks/robo_blk/ai/fun_ai_coco.js"
+// import "./ublocks/robo_blk/ai/fun_ai_mark.js"
 
-import { fun_cam_xml } from "./ublocks/robo_blk/cam/fun_cam.js"
-import { fun_ps_xml } from "./ublocks/robo_blk/ps/fun_ps.js"
-import { fun_bt_xml } from "./ublocks/robo_blk/bt/fun_bt.js"
+// import { fun_cam_xml } from "./ublocks/robo_blk/cam/fun_cam.js"
+// import { fun_ps_xml } from "./ublocks/robo_blk/ps/fun_ps.js"
+// import { fun_bt_xml } from "./ublocks/robo_blk/bt/fun_bt.js"
+
 import { fun_net_xml } from "./ublocks/robo_blk/net/fun_net.js"
 import { fun_robo_xml } from "./ublocks/robo_blk/robo/fun_robo.js"
-import { fun_util_xml } from "./ublocks/robo_blk/util/fun_util.js"
+import { fun_lane_xml } from "./ublocks/robo_blk/lane/fun_lane.js"
+import { fun_mark_xml } from "./ublocks/robo_blk/mark/fun_mark.js"
+
+import { fun_train_xml } from "./ublocks/robo_blk/train/fun_train.js"
 import { fun_user_xml } from "./ublocks/robo_blk/user/fun_user.js"
+
 
 //<!-- code block -->
 import { code_blk_xml_head, code_blk_xml_tail } from './ublocks/code_blk/code_blk.js'
 import { code_blk_robo } from './ublocks/code_blk/01.robo/code_robo.js'
 
-import { code_blk_bt } from "./ublocks/code_blk/02.bt/code_bt.js"
 import { code_blk_lane } from "./ublocks/code_blk/03.lane/code_lane.js"
+import { code_blk_mark } from "./ublocks/code_blk/11.mark/code_mark.js"
+
+// import { code_blk_bt } from "./ublocks/code_blk/02.bt/code_bt.js"
 import { code_blk_dir } from "./ublocks/code_blk/04.dir/code_dir.js"
 import { code_blk_light } from "./ublocks/code_blk/05.light/code_light.js"
 import { code_blk_sign } from "./ublocks/code_blk/06.sign/code_sign.js"
 import { code_blk_obj } from "./ublocks/code_blk/07.obj/code_obj.js"
 import { code_blk_demo } from "./ublocks/code_blk/10.demo/code_demo.js"
-import { code_blk_mark } from "./ublocks/code_blk/11.mark/code_mark.js"
 
 
 // //const tool_blk_xml = xml_basic_head + robo_blk_xml_head +  fun_robo_xml + robo_blk_xml_tail + xml_basic_tail
 const tool_blk_xml =
 	xml_basic_head +
 	robo_blk_xml_head +
-	fun_ai_xml + fun_cam_xml + fun_net_xml + fun_bt_xml + fun_ps_xml + fun_robo_xml +
-	fun_util_xml + fun_user_xml +
+	fun_robo_xml +
+	fun_lane_xml +
+	fun_mark_xml +
+	fun_train_xml + fun_user_xml +
 	robo_blk_xml_tail +
 
 	code_blk_xml_head +
 	code_blk_robo +
-	code_blk_bt +
 	code_blk_mark +
 	code_blk_lane +
-	code_blk_dir +
-	code_blk_light +
-	code_blk_sign +
-	code_blk_obj +
 	code_blk_demo +
 	code_blk_xml_tail +
 	xml_basic_tail

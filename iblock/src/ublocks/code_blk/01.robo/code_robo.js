@@ -62,7 +62,7 @@ var strout ="";
 Blockly.Blocks['01.robo/03.led.xml'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField('03.led.xml');
+        .appendField('03.깜빡이');
     
     //this.setInputsInline(true);
     //this.setPreviousStatement(true, null);

@@ -2,39 +2,39 @@
 import Blockly from "blockly";
 import 'blockly/python';  
 
+
 export var fun_robo_xml = `
 <category name="ROBO" colour="%{BKY_VARIABLES_HUE}">
   <block type="fun_robo_import"></block>
   <block type="fun_robo_control"></block>
+  
   <block type="fun_robo_move"></block>
+  <block type="fun_robo_stop"></block>
   <block type="fun_robo_delay"></block>
+
+  <block type="fun_robo_dis_img"></block>
+  <block type="fun_robo_dis_img_ang"></block>
+
+  <block type="fun_robo_dir_clean"></block>
+  <block type="fun_robo_hp_con"></block>
+
 
   <block type="fun_robo_led_left"></block>
   <block type="fun_robo_led_right"></block>
-  <block type="fun_robo_led_left_back"></block>
-  <block type="fun_robo_led_right_back"></block>
-  
-  <block type="fun_robo_get_rbutton"></block>
-  <block type="fun_robo_get_lbutton"></block>
+  <block type="fun_robo_beep"></block>
 
-  <block type="fun_robo_get_dist"></block>
-  <block type="fun_robo_get_time"></block>
- 
-  <block type="fun_robo_reboot"></block>
-  <block type="fun_robo_read_battery"></block>
+  <block type="fun_robo_get_ip"></block>
+  <block type="fun_robo_conn_ap"></block>
+  <block type="fun_robo_set_hotspot"></block>
 
-  <block type="fun_robo_call_time"></block>
-  <block type="fun_robo_check_end_time"></block>
-  <block type="fun_robo_reset_end_time"></block>
+</category>`;
 
-</category>`
 
-let strout
 //<
 Blockly.Blocks['fun_robo_import'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("from robot_control.robot import robot_control");
+        .appendField("from robot import robot_control");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -46,7 +46,7 @@ Blockly.Blocks['fun_robo_import'] = {
 Blockly.Python['fun_robo_import'] = function(block) {
 // TODO: Assemble Python into code variable.
 
-let strout = 'from robot_control.robot import robot_control'
+let strout = 'from robo import robot_control'
 var code = strout + '\n';
 return code;
 };
@@ -100,7 +100,7 @@ Blockly.Python['fun_robo_move'] = function(block) {
   var value_angle = Blockly.Python.valueToCode(block, 'angle', Blockly.Python.ORDER_ATOMIC);
   var value_speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  strout = 'robo.move(' + value_angle + ', ' + value_speed + ')';
+  let strout = 'robo.move(' + value_angle + ', ' + value_speed + ')';
   var code = strout + '\n';
   return code;
 };
@@ -128,12 +128,87 @@ Blockly.Blocks['fun_robo_delay'] = {
     var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
     
-    strout = 'robo.delay(' + value_name + ')';
+    let strout = 'robo.delay(' + value_name + ')';
     var code = strout + '\n';
     return code;
   };
   //>>
   
+//<<
+Blockly.Blocks['fun_robo_dis_img'] = {
+  init: function() {
+      this.appendDummyInput()
+          .appendField("robo.dis_img(img =");
+      
+      // img 문자열 입력
+      this.appendValueInput("IMG")
+          .setCheck("String")
+         
+      this.appendDummyInput()
+          .appendField(")");
+
+      this.setInputsInline(true);  // 한 줄로 표시
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);  // 블록 색상 설정
+      this.setTooltip("Display image using robo.dis_img()");
+      this.setHelpUrl("");
+  }
+};
+
+Blockly.Python['fun_robo_dis_img'] = function(block) {
+  var value_img = Blockly.Python.valueToCode(block, 'IMG', Blockly.Python.ORDER_ATOMIC);  // img 값 가져오기
+
+  // Python 코드 생성
+  var code = 'robo.dis_img(' + value_img + ')\n';
+  return code;
+};
+  
+//>
+
+//<<
+Blockly.Blocks['fun_robo_dis_img_ang'] = {
+  init: function() {
+      this.appendDummyInput()
+          .appendField("robo.dis_img_ang(");
+
+      // img 문자열 입력
+      this.appendValueInput("IMG")
+          .setCheck("String")
+          .appendField("img =");
+
+      // angle 숫자 입력
+      this.appendValueInput("ANGLE")
+          .setCheck("Number")
+          .appendField(", angle =");
+
+      this.appendDummyInput()
+          .appendField(")");
+
+      this.setInputsInline(true);  // 모든 입력을 한 줄로 표시
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);  // 블록 색상 설정
+      this.setTooltip("Display image with angle using robo.dis_img_ang()");
+      this.setHelpUrl("");
+  }
+};
+Blockly.Python['fun_robo_dis_img_ang'] = function(block) {
+  var value_img = Blockly.Python.valueToCode(block, 'IMG', Blockly.Python.ORDER_ATOMIC);  // img 값 가져오기
+  var value_angle = Blockly.Python.valueToCode(block, 'ANGLE', Blockly.Python.ORDER_ATOMIC);  // angle 값 가져오기
+
+  // Python 코드 생성
+  var code = 'robo.dis_img_ang(' + value_img + ', ' + value_angle + ')\n';
+  return code;
+};
+//>>
+
+
+
+
+
+
+
 //<<
 Blockly.Blocks['fun_robo_led_left'] = {
   init: function() {
@@ -161,32 +236,6 @@ Blockly.Python['fun_robo_led_left'] = function(block) {
 };
 //>>
 
-//<<
-Blockly.Blocks['fun_robo_led_left_back'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.led_left_back(");
-      this.appendValueInput("NAME")
-          .setCheck("Number");
-      this.appendDummyInput()
-          .appendField(")");
-      this.setInputsInline(true);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_led_left_back'] = function(block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
-    
-    strout = 'robo.led_left_back(' + value_name + ')';
-    var code = strout + '\n';
-    return code;
-};
-//>>
 
 //<<
 Blockly.Blocks['fun_robo_led_right'] = {
@@ -218,34 +267,26 @@ Blockly.Python['fun_robo_led_right'] = function(block) {
 
 
 //<<
-Blockly.Blocks['fun_robo_led_right_back'] = {
+Blockly.Blocks['fun_robo_stop'] = {
   init: function() {
-      this.appendDummyInput()
-          .appendField("robo.led_right_back(");
-      this.appendValueInput("NAME")
-          .setCheck("Number");
-      
-      this.appendDummyInput()
-          .appendField(")");
-
-      this.setInputsInline(true);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
-    }
+    this.appendDummyInput()
+        .appendField("robo.stop( )");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
 };
+Blockly.Python['fun_robo_stop'] = function(block) {
+// TODO: Assemble Python into code variable.
 
-Blockly.Python['fun_robo_led_right_back'] = function(block) {
-  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-  // TODO: Assemble Python into code variable.
-  strout = 'robo.led_right_back(' + value_name + ')';
-  var code = strout + '\n';
-  return code;
+let strout = 'robo.stop()'
+var code = strout + '\n';
+return code;
 };
 //>>
-
 
 
 
@@ -271,19 +312,12 @@ return code;
 };
 //>>
 
+
 //<<
-Blockly.Blocks['fun_robo_arecord'] = {
+Blockly.Blocks['fun_robo_get_ip'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("robo.arecord(");
-    this.appendValueInput("wav")
-        .setCheck("String");
-    this.appendDummyInput()
-        .appendField(",");
-    this.appendValueInput("time")
-        .setCheck("Number");
-    this.appendDummyInput()
-        .appendField(")");
+        .appendField("robo.get_ip()");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -292,11 +326,10 @@ Blockly.Blocks['fun_robo_arecord'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.Python['fun_robo_arecord'] = function(block) {
-var value_wav = Blockly.Python.valueToCode(block, 'wav', Blockly.Python.ORDER_ATOMIC);
-var value_time = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
+Blockly.Python['fun_robo_get_ip'] = function(block) {
 // TODO: Assemble Python into code variable.
-strout = 'robo.arecord(' + value_wav + ', ' + value_time + ')';
+
+let strout = 'robo.get_ip()'
 var code = strout + '\n';
 return code;
 };
@@ -304,124 +337,49 @@ return code;
 
 
 //<<
-Blockly.Blocks['fun_robo_sound'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("robo.sound(");
-    this.appendValueInput("wav")
-        .setCheck("String");
-    this.appendDummyInput()
-        .appendField(",");
-    this.appendValueInput("time")
-        .setCheck("Number");
-    this.appendDummyInput()
-        .appendField(",");
-    this.appendValueInput("onoff")
-        .setCheck("Number");
-    this.appendDummyInput()
-        .appendField(")");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_sound'] = function(block) {
-var value_wav = Blockly.Python.valueToCode(block, 'wav', Blockly.Python.ORDER_ATOMIC);
-var value_time = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
-var value_onoff = Blockly.Python.valueToCode(block, 'onoff', Blockly.Python.ORDER_ATOMIC);
-
-// TODO: Assemble Python into code variable.
-strout = 'robo.sound(' + value_wav + ', ' + value_time + ', ' + value_onoff + ')';
-var code = strout + '\n';
-return code;
-};
-//>>
-
-//sgkim
-//<<
-Blockly.Blocks['fun_robo_net_eth'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("robo.net_eth()");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_net_eth'] = function(block) {
-// TODO: Assemble Python into code variable.
-
-let strout = 'robo.net_eth()'
-var code = strout + '\n';
-return code;
-};
-//>>
-
-//<<
-Blockly.Blocks['fun_robo_net_wifi'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("robo.net_wifi()");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_net_wifi'] = function(block) {
-// TODO: Assemble Python into code variable.
-
-let strout = 'robo.net_wifi()'
-var code = strout + '\n';
-return code;
-};
-//>>
-
-//<<
-Blockly.Blocks['fun_robo_offset'] = {
-  init: function() {
+Blockly.Blocks['fun_robo_conn_ap'] = {
+    init: function() {
       this.appendDummyInput()
-          .appendField("robo.offset(");
-      this.appendValueInput("NAME")
-          .setCheck("Number");
+          .appendField("robo.conn_ap( ssdi=");
+      this.appendValueInput("ssdi")
+          .setCheck("String");
+      this.appendDummyInput()
+          .appendField(",")
+          .appendField("pw=");
+      this.appendValueInput("pw")
+          .setCheck("String");
       this.appendDummyInput()
           .appendField(")");
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
       this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
+   this.setTooltip("");
+   this.setHelpUrl("");
     }
-  };
-  Blockly.Python['fun_robo_offset'] = function(block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
-    
-    strout = 'robo.offset(' + value_name + ')';
-    var code = strout + '\n';
-    return code;
-  };
-  //>>
+};
+Blockly.Python['fun_robo_conn_ap'] = function(block) {
+  var value_ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_ATOMIC);
+  var value_pw = Blockly.Python.valueToCode(block, 'pw', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  strout = 'robo.conn_ap(' + value_ssid + ', ' + value_pw + ')';
+  var code = strout + '\n';
+  return code;
+};
+//>>
+
 
 
 //<<
-Blockly.Blocks['fun_robo_pid_gain'] = {
+Blockly.Blocks['fun_robo_set_hotspot'] = {
   init: function() {
       this.appendDummyInput()
-          .appendField("robo.pid_gain(");
+          .appendField("robo.set_hotspot(");
       this.appendValueInput("NAME")
-          .setCheck("Number");
+          .setCheck("String");
       this.appendDummyInput()
           .appendField(")");
+
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -430,299 +388,114 @@ Blockly.Blocks['fun_robo_pid_gain'] = {
       this.setHelpUrl("");
     }
 };
-Blockly.Python['fun_robo_pid_gain'] = function(block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
-    
-    strout = 'robo.pid_gain(' + value_name + ')';
-    var code = strout + '\n';
-    return code;
+
+Blockly.Python['fun_robo_set_hotspot'] = function(block) {
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  strout = 'robo.set_hotspot(' + value_name + ')';
+  var code = strout + '\n';
+  return code;
 };
 //>>
+
+
 
 
 //<<
-Blockly.Blocks['fun_robo_reboot'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("robo.reboot()");
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_reboot'] = function(block) {
-// TODO: Assemble Python into code variable.
 
-let strout = 'robo.reboot()'
-var code = strout + '\n';
-return code;
-};
-//>>
-
-
-//<<
-Blockly.Blocks['fun_robo_set_run_speed'] = {
+Blockly.Blocks['fun_robo_dir_clean'] = {
   init: function() {
       this.appendDummyInput()
-          .appendField("robo.set_run_speed(");
-      this.appendValueInput("NAME")
-          .setCheck("Number");
-      this.appendDummyInput()
+          .appendField("robo.dir_clean(")
+          .appendField(new Blockly.FieldDropdown([
+            ["lane0", "lane0"],  // 실제 값도 소문자로 설정
+            ["lane1", "lane1"], 
+            ["lane2", "lane2"], 
+            ["mark0", "mark0"], 
+            ["mark1", "mark1"], 
+            ["mark2", "mark2"]
+          ]), "NAME")  // 드롭다운으로 선택
           .appendField(")");
-      this.setInputsInline(true);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
-    }
-};
-Blockly.Python['fun_robo_set_run_speed'] = function(block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
-    
-    strout = 'robo.set_run_speed(' + value_name + ')';
-    var code = strout + '\n';
-    return code;
-};
-//>>
-
-//<
-Blockly.Blocks['fun_robo_get_run_speed'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.get_run_speed(  )");
-      this.setInputsInline(true);
-      this.setOutput(true, null);
-      this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_get_run_speed'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  let strout = 'robo.get_run_speed()'
-  //var code = strout + '\n';
-  var code = strout;  
-  return [code, Blockly.Python.ORDER_NONE];
-};
-//>
-
-//<<
-Blockly.Blocks['fun_robo_set_psd'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.set_psd(");
-      this.appendValueInput("NAME")
-          .setCheck("Number");
-      this.appendDummyInput()
-          .appendField(")");
-      this.setInputsInline(true);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
-    }
-};
-Blockly.Python['fun_robo_set_psd'] = function(block) {
-    var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-    // TODO: Assemble Python into code variable.
-    
-    strout = 'robo.set_psd(' + value_name + ')';
-    var code = strout + '\n';
-    return code;
-};
-//>>
-
-//<
-Blockly.Blocks['fun_robo_read_battery'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.read_battery(  )");
-      this.setInputsInline(true);
-      this.setOutput(true, null);
-      this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_read_battery'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  let strout = 'robo.read_battery()'
-  //var code = strout + '\n';
-  var code = strout;  
-  return [code, Blockly.Python.ORDER_NONE];
-};
-//>
-
-
-//<
-Blockly.Blocks['fun_robo_get_rbutton'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.get_rbutton(  )");
-      this.setInputsInline(true);
-      this.setOutput(true, null);
-      this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_get_rbutton'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  let strout = 'robo.get_rbutton()'
-  //var code = strout + '\n';
-  var code = strout;  
-  return [code, Blockly.Python.ORDER_NONE];
-};
-//>
-
-
-//<
-Blockly.Blocks['fun_robo_get_lbutton'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.get_lbutton(  )");
-      this.setInputsInline(true);
-      this.setOutput(true, null);
-      this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_get_lbutton'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  let strout = 'robo.get_lbutton()'
-  //var code = strout + '\n';
-  var code = strout;  
-  return [code, Blockly.Python.ORDER_NONE];
-};
-//>
-
-
-//<
-Blockly.Blocks['fun_robo_get_dist'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.get_dist(  )");
-      this.setInputsInline(true);
-      this.setOutput(true, null);
-      this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_get_dist'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  let strout = 'robo.get_dist()'
-  //var code = strout + '\n';
-  var code = strout;  
-  return [code, Blockly.Python.ORDER_NONE];
-};
-//>
-
-
-//<
-Blockly.Blocks['fun_robo_get_time'] = {
-  init: function() {
-      this.appendDummyInput()
-          .appendField("robo.get_time(  )");
-      this.setInputsInline(true);
-      this.setOutput(true, null);
-      this.setColour(230);
-    this.setTooltip("");
-    this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_get_time'] = function(block) {
-  // TODO: Assemble Python into code variable.
-  let strout = 'robo.get_time()'
-  //var code = strout + '\n';
-  var code = strout;  
-  return [code, Blockly.Python.ORDER_NONE];
-};
-//>
-
-
-//<<---
-Blockly.Blocks['fun_robo_call_time'] = {
-  init: function() {
-      this.setOutput(true,null)
-      this.setInputsInline(true);
-
-      this.appendValueInput("NAME")
-          .setCheck("Number")
-          .appendField("robo.call_time(");
-      this.appendDummyInput()
-          .appendField(")");
-
-      this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
-  }
-};
-
-Blockly.Python['fun_robo_call_time'] = function(block) {
-var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-// TODO: Assemble Python into code variable.
-var strout = 'robo.call_time(' + value_name + ')';
-var code =  strout;
-return [code, Blockly.Python.ORDER_NONE];
-};
-//-->>
-
-
-//<<---
-Blockly.Blocks['fun_robo_check_end_time'] = {
-  init: function() {
-      this.setOutput(true,null)
-      this.setInputsInline(true);
-
-      this.appendValueInput("NAME")
-          .setCheck("Number")
-          .appendField("robo.check_end_time(");
-      this.appendDummyInput()
-          .appendField(")");
-      
-      this.setColour(230);
-      this.setTooltip("");
-      this.setHelpUrl("");
-  }
-};
-Blockly.Python['fun_robo_check_end_time'] = function(block) {
-var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
-// TODO: Assemble Python into code variable.
-var strout = 'robo.check_end_time(' + value_name + ')';
-var code =  strout;
-return [code, Blockly.Python.ORDER_NONE];
-};
-//-->>
-
-//<<---
-Blockly.Blocks['fun_robo_reset_end_time'] = {
-  init: function() {
-      this.setInputsInline(true);
-
-      this.setNextStatement(true,null)
-      this.setPreviousStatement(true,null)
           
-      this.appendDummyInput()
-          .appendField("robo.reset_end_time( )");
-      
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
       this.setColour(230);
       this.setTooltip("");
       this.setHelpUrl("");
-  }
+    }
 };
 
-Blockly.Python['fun_robo_reset_end_time'] = function(block) {
-var strout = 'robo.reset_end_time( )';
-var code =  strout + '\n';
-return code;
+
+Blockly.Python['fun_robo_dir_clean'] = function(block) {
+  var dropdown_name = block.getFieldValue('NAME');  // 드롭다운에서 선택된 값을 가져옴
+  var code = 'robo.dir_clean(' + dropdown_name + ')\n';
+  return code;
 };
-//-->>
+
+//>>
+
+
+//<<
+// 블록 정의
+Blockly.Blocks['fun_robo_hp_con'] = {
+  init: function() {
+      this.appendDummyInput()
+          .appendField("robo.hp_con(");
+      
+      // sdir 드롭다운 입력 (lane0, lane1, lane2, mark0, mark1, mark2)
+      this.appendDummyInput()
+          .appendField('sdir =')
+          .appendField(new Blockly.FieldDropdown([
+            ["lane0", "lane0"],
+            ["lane1", "lane1"],
+            ["lane2", "lane2"],
+            ["mark0", "mark0"],
+            ["mark1", "mark1"],
+            ["mark2", "mark2"]
+          ]), "SDIR");
+
+      // cspeed 숫자 입력
+      this.appendValueInput("CSPEED")
+          .setCheck("Number")
+          .appendField(", cspeed =");
+
+      // idiv 숫자 입력
+      this.appendValueInput("IDIV")
+          .setCheck("Number")
+          .appendField(", idiv =");
+
+      // asens 숫자 입력
+      this.appendValueInput("ASENS")
+          .setCheck("Number")
+          .appendField(", asens =");
+
+      this.appendDummyInput()
+          .appendField(")");
+
+      this.setInputsInline(true);  // 모든 입력을 한 줄로 표시
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      this.setColour(230);  // 블록 색상 설정
+      this.setTooltip("Calls robo.hp_con with the specified parameters.");
+      this.setHelpUrl("");
+    }
+};
+
+
+// Python 코드 생성기
+Blockly.Python['fun_robo_hp_con'] = function(block) {
+  var dropdown_sdir = block.getFieldValue('SDIR');  // sdir 드롭다운 값
+  var value_cspeed = Blockly.Python.valueToCode(block, 'CSPEED', Blockly.Python.ORDER_ATOMIC);  // cspeed 값
+  var value_idiv = Blockly.Python.valueToCode(block, 'IDIV', Blockly.Python.ORDER_ATOMIC);  // idiv 값
+  var value_asens = Blockly.Python.valueToCode(block, 'ASENS', Blockly.Python.ORDER_ATOMIC);  // asens 값
+
+  // Python 코드 생성
+  var code = 'robo.hp_con(sdir="' + dropdown_sdir + '", cspeed=' 
+		+ value_cspeed + ', idiv=' + value_idiv + ', asens=' + value_asens + ')\n';
+  return code;
+};
+
+//>>
+
+
