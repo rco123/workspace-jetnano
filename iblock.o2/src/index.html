@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iBlock App</title>
+
+  </head>
+
+<body >
+    
+    <div id="head_part" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+      <img src="images/iblock_log.png" alt="iBlock" style="float: left; width: 100px; height: auto; margin-top: 15px; margin-left: 20px;">
+  
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  
+        <button type="button" id="blockClear" class="btn btn-primary btn-sm" style="margin-top:30px; margin-right:20px;" >BLK CLEAR</button>
+        <button type="button" id="fblockSave" class="btn btn-secondary btn-sm" style="margin-top:30px; margin-right:20px;" >FBLK SAVE</button>
+        
+        <input type="file" id="fileInput" accept=".xml" style="display:none;" />
+        <button type="button" id="fblockRead" class="btn btn-success btn-sm" style="margin-top:30px; margin-right:20px;" >FBLK READ</button>
+        
+        <button type="button" id="blockSave" class="btn btn-secondary btn-sm" style="margin-top:30px; margin-right:20px;" >BLK SAVE</button>
+        <button type="button" id="blockRead" class="btn btn-success btn-sm" style="margin-top:30px; margin-right:20px;" >BLK READ</button>
+        
+      </div>
+    </div>
+
+    
+  <div id='blocklyArea'> </div>
+  <div id="blocklyDiv" style="position: absolute"></div>
+
+  <div id="divArea" ></div>
+
+  <div id="con_view_area">
+
+		
+    <div id="t1">
+      <button type="button" class="btn btn-link btn-sm" style="margin-top:5px;" disabled>CODE VIEW</button>
+      <button id="code_copy" type="button" class="btn btn-danger btn-sm" style="float:right; margin-top:3px; margin-right:10px" onclick="func_copy()">COPY</button>
+      <button id="code_run" type="button" class="btn btn-secondary btn-sm" style="float:right; margin-top:3px; margin-right:10px">RUN</button>
+      <button id="imgView" type="button" class="btn btn-info btn-sm" style="float:right; margin-top:3px; margin-right:10px;">IMG VIEW</button>
+      
+    </div>
+  
+
+
+		<div id="code_div" >
+			<textarea id="code_out" readonly style="height: 100%; width: 100%; font-size: small; font-family: Verdana, Geneva, Tahoma, sans-serif; border: none; "></textarea>
+		</div>
+
+		<div id="t3" >
+
+			<button id="ip_status_button" type="button" class="btn btn-link btn-sm" style="margin-top:5px;" disabled >STATUS</button>
+      <button id="code_kill" type="button" class="btn btn-danger btn-sm" style="float:right; margin-top:3px; margin-right:10px" >KILL</button>
+			<button id="code_clear" type="button" class="btn btn-danger btn-sm" style="float:right; margin-top:3px; margin-right:10px" >CLEAR</button>
+			
+		</div>
+		<div id="t4" > </div>
+	</div>
+
+	<div id="bottom" >
+			power by Google
+	</div>
+
+  <div id="toast" class="toast">영상 스트림을 불러오는 데 실패했습니다. 다시 시도해주세요.</div>
+
+    <script src="bundle.js"></script>
+  </body>
+  
+</html>

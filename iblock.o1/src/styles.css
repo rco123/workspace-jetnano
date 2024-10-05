@@ -1,0 +1,129 @@
+
+
+.blocklyTreeLabel {
+    font-size: 12px !important;
+    }
+    
+    .blocklyText, .blocklyHtmlInput, .blocklyTreeLabel {
+    font-family: 'Kanit', sans-serif !important;
+    }
+    
+    .blocklyTreeRow {
+    height: 28px !important;
+    margin-top: 5px !important;
+    }
+    
+    
+    html, body {
+    height: 100%;
+    margin: 0;
+    }
+    body {
+    
+    font-family: sans-serif;
+    overflow: hidden;
+    }
+    h1 {
+    font-weight: normal;
+    
+    font-size: 140%;
+    }
+    
+    #head_part{
+    height: 80px;
+    border-color: rgb(17, 17, 11);
+    border-width: 0px;
+    border-style: solid;
+    background-color: rgb(180, 185, 109);
+    margin-bottom: 0px;
+    }
+    
+    #blocklyArea {
+    height: calc(100% - 100px);
+    
+    width: 70%;
+    float:left;
+    border-style: solid;
+    border-color: blue;
+    border-width: 0px;
+    }
+    
+    #divArea {
+    height: calc(100% - 100px);
+    
+    width: 10px;
+    float:left;
+    border-style: solid;
+    border-color: blue;
+    border-width: 0px;
+    float:left;
+    }
+    
+    #con_view_area {
+    height: calc(100% - 100px);
+    
+    width: calc(30% - 10px);
+    background-color: rgb(255, 255, 255);
+    float: right;
+    
+    border-color: rgb(180, 177, 177);
+    border-width: 1px;
+    border-style: solid;
+    
+    }
+    
+    #con_view_area #t1{
+    height : 40px;
+    border-color: rgb(177, 173, 173);
+    border-width: 1px;
+    border-style: solid;
+    }
+    
+    
+    #con_view_area #code_div{
+    height : calc(100% - 350px);
+    border-color: rgb(177, 173, 173);
+    border-width: 1px;
+    border-style: solid;
+    }
+    
+    
+    #con_view_area #t3 {
+    height : 40px;
+    border-color: rgb(177, 173, 173);
+    border-width: 1px;
+    border-style: solid;
+    
+    }
+    #con_view_area #t4 {
+    height : 270px;
+    border-color: rgb(177, 173, 173);
+    border-width: 1px;
+    border-style: solid;
+    }
+    
+    #bottom{
+    height:20px;
+    width: 100%;
+    background-color: rgb(224, 222, 219);
+    clear: both;
+    
+    border-color: rgb(129, 120, 120);
+    border-width: 1px;
+    border-style: solid;
+    
+    font-family:'Malgun Gothic';
+    font-weight: bold;
+    font-size:10pt;
+    
+    }
+    
+    #view_code_button, #copy_button, #result_btn, #clear_btn{
+    font-family:'Malgun Gothic';
+    font-weight: bold;
+    font-size:10pt;
+    }
+    
+    
+    
+

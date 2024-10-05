@@ -458,6 +458,17 @@ class robot_control:
 #            print("Error stopping Hotspot:", e.stderr)
 #
 
+#        # nmcli 명령어 생성
+#        command = ["sudo", "ifconfig", "wlan0", "up" ]
+#        # 명령어 실행
+#        try:
+#            result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+#            print("Connection successful:", result.stdout)
+#        except subprocess.CalledProcessError as e:
+#            print("Error occurred:", e.stderr)
+#
+
+
         # nmcli 명령어 생성
         command = ["sudo", "nmcli", "device", "disconnect", "wlan0" ]
         # 명령어 실행
@@ -480,6 +491,12 @@ class robot_control:
             print("Connection successful:", result.stdout)
         except subprocess.CalledProcessError as e:
             print("Error occurred:", e.stderr)
+
+        time.sleep(1)
+
+        self.get_ip()
+
+
 
 
     def set_hotspot(self, ipaddr="192.168.5.1"):

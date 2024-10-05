@@ -1,0 +1,11 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_robo_import" id="aH`.+$PkVCRrju(4PbPP" x="287" y="213">
+    <next>
+      <block type="fun_robo_control" id="}OYTIoQye7VxDY`c((Yb">
+        <next>
+          <block type="fun_robo_beep" id="%YKrrT)U3|BTA$g}T^1{"></block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

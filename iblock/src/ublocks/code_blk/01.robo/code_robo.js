@@ -2,18 +2,19 @@ import Blockly from "blockly";
 import 'blockly/python';  // Blockly.Python을 초기화하는 모듈을 가져옵니다.
 
 export var code_blk_robo = 
-`<category name="robo" colour="%{BKY_VARIABLES_HUE}">
-    <block type='01.robo/01.disp.xml'></block>
-    <block type='01.robo/02.move.xml'></block>
-    <block type='01.robo/03.led.xml'></block>
-    <block type='01.robo/04.dist.xml'></block>
+`<category name="ROBO" colour="%{BKY_VARIABLES_HUE}">
+    <block type='01.robo/01.move.xml'></block>
+    <block type='01.robo/02.led.xml'></block>
+    <block type='01.robo/03.beep.xml'></block>
+    <block type='01.robo/04.disp.xml'></block>
+    <block type='01.robo/05.disp.xml'></block>
 </category>`
 
 //<<1
-Blockly.Blocks['01.robo/01.disp.xml'] = {
+Blockly.Blocks['01.robo/01.move.xml'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField('01.disp.xml');
+        .appendField('01.move.xml');
     
     //this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
@@ -24,7 +25,7 @@ Blockly.Blocks['01.robo/01.disp.xml'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.Python['01.robo/01.disp.xml'] = function(block) {
+Blockly.Python['01.robo/01.move.xml'] = function(block) {
   // TODO: Assemble Python into code variable.
 
 var strout ="";
@@ -35,10 +36,10 @@ var strout ="";
 
 
 //<<2
-Blockly.Blocks['01.robo/02.move.xml'] = {
+Blockly.Blocks['01.robo/02.led.xml'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField('02.move.xml');
+        .appendField('02.led.xml');
     
     //this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
@@ -49,7 +50,7 @@ Blockly.Blocks['01.robo/02.move.xml'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.Python['01.robo/02.move.xml'] = function(block) {
+Blockly.Python['01.robo/02.led.xml'] = function(block) {
   // TODO: Assemble Python into code variable.
 var strout ="";
   var code = strout + '\n';
@@ -59,10 +60,10 @@ var strout ="";
 
 
 //<<3
-Blockly.Blocks['01.robo/03.led.xml'] = {
+Blockly.Blocks['01.robo/03.beep.xml'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField('03.깜빡이');
+        .appendField('03.beep');
     
     //this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
@@ -73,7 +74,7 @@ Blockly.Blocks['01.robo/03.led.xml'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.Python['01.robo/03.led.xml'] = function(block) {
+Blockly.Python['01.robo/03.beep.xml'] = function(block) {
   // TODO: Assemble Python into code variable.
 var strout ="";
   var code = strout + '\n';
@@ -82,10 +83,10 @@ var strout ="";
 //>>
 
 //<<4
-Blockly.Blocks['01.robo/04.dist.xml'] = {
+Blockly.Blocks['01.robo/04.disp.xml'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField('04.dist.xml');
+        .appendField('04.disp.xml');
     
     //this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
@@ -104,4 +105,27 @@ var strout ="";
 };
 //>>
 
+
+//<<5
+Blockly.Blocks['01.robo/05.disp.xml'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField('05.disp.xml');
+    
+    //this.setInputsInline(true);
+    //this.setPreviousStatement(true, null);
+    //this.setNextStatement(true, null);
+
+ this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.Python['01.robo/05.dist.xml'] = function(block) {
+  // TODO: Assemble Python into code variable.
+var strout ="";
+  var code = strout + '\n';
+  return code;
+};
+//>>
 

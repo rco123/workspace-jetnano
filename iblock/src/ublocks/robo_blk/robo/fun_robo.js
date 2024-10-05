@@ -2,9 +2,39 @@
 import Blockly from "blockly";
 import 'blockly/python';  
 
+const colorVal = "#FF5555"
+
+// export var fun_robo_xml = `
+// <category name="ROBO" colour="${colorVal}">
+//   <block type="fun_robo_import"></block>
+//   <block type="fun_robo_control"></block>
+  
+//   <block type="fun_robo_move"></block>
+//   <block type="fun_robo_stop"></block>
+//   <block type="fun_robo_delay"></block>
+
+//   <block type="fun_robo_get_img"></block>
+
+//   <block type="fun_robo_dis_img"></block>
+//   <block type="fun_robo_dis_img_ang"></block>
+
+//   <block type="fun_robo_dir_clean"></block>
+//   <block type="fun_robo_hp_con"></block>
+
+//   <block type="fun_robo_led_left"></block>
+//   <block type="fun_robo_led_right"></block>
+//   <block type="fun_robo_beep"></block>
+
+//   <block type="fun_robo_get_ip"></block>
+//   <block type="fun_robo_conn_ap"></block>
+//   <block type="fun_robo_set_hotspot"></block>
+
+// </category>`;
+
+
 
 export var fun_robo_xml = `
-<category name="ROBO" colour="%{BKY_VARIABLES_HUE}">
+<category name="ROBO" colour="${colorVal}">
   <block type="fun_robo_import"></block>
   <block type="fun_robo_control"></block>
   
@@ -12,12 +42,15 @@ export var fun_robo_xml = `
   <block type="fun_robo_stop"></block>
   <block type="fun_robo_delay"></block>
 
+  <block type="fun_robo_get_img"></block>
+
+  
+  
   <block type="fun_robo_dis_img"></block>
   <block type="fun_robo_dis_img_ang"></block>
 
   <block type="fun_robo_dir_clean"></block>
   <block type="fun_robo_hp_con"></block>
-
 
   <block type="fun_robo_led_left"></block>
   <block type="fun_robo_led_right"></block>
@@ -30,6 +63,9 @@ export var fun_robo_xml = `
 </category>`;
 
 
+
+
+
 //<
 Blockly.Blocks['fun_robo_import'] = {
   init: function() {
@@ -38,7 +74,7 @@ Blockly.Blocks['fun_robo_import'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour('#FF5555');
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -60,7 +96,7 @@ Blockly.Blocks['fun_robo_control'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
    this.setTooltip("");
    this.setHelpUrl("");
     }
@@ -91,7 +127,7 @@ Blockly.Blocks['fun_robo_move'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
    this.setTooltip("");
    this.setHelpUrl("");
     }
@@ -119,7 +155,7 @@ Blockly.Blocks['fun_robo_delay'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
       this.setTooltip("");
       this.setHelpUrl("");
     }
@@ -132,7 +168,35 @@ Blockly.Blocks['fun_robo_delay'] = {
     var code = strout + '\n';
     return code;
   };
-  //>>
+//>>
+
+
+//<<
+Blockly.Blocks['fun_robo_get_img'] = {
+  init: function() {
+      this.appendDummyInput()
+          .appendField("robo.get_img(");
+      this.appendDummyInput()
+          .appendField(")");
+      
+      this.setInputsInline(true);
+
+      this.setInputsInline(true);
+      this.setOutput(true, null);
+
+      this.setColour(colorVal);
+      this.setTooltip("");
+      this.setHelpUrl("");
+    }
+  };
+  Blockly.Python['fun_robo_get_img'] = function(block) {
+    
+    let strout = 'robo.get_img( )';
+    var code = strout;
+    return code;
+  };
+//>>
+
   
 //<<
 Blockly.Blocks['fun_robo_dis_img'] = {
@@ -150,7 +214,7 @@ Blockly.Blocks['fun_robo_dis_img'] = {
       this.setInputsInline(true);  // 한 줄로 표시
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);  // 블록 색상 설정
+      this.setColour(colorVal);  // 블록 색상 설정
       this.setTooltip("Display image using robo.dis_img()");
       this.setHelpUrl("");
   }
@@ -188,7 +252,7 @@ Blockly.Blocks['fun_robo_dis_img_ang'] = {
       this.setInputsInline(true);  // 모든 입력을 한 줄로 표시
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);  // 블록 색상 설정
+      this.setColour(colorVal);  // 블록 색상 설정
       this.setTooltip("Display image with angle using robo.dis_img_ang()");
       this.setHelpUrl("");
   }
@@ -203,12 +267,6 @@ Blockly.Python['fun_robo_dis_img_ang'] = function(block) {
 };
 //>>
 
-
-
-
-
-
-
 //<<
 Blockly.Blocks['fun_robo_led_left'] = {
   init: function() {
@@ -221,7 +279,7 @@ Blockly.Blocks['fun_robo_led_left'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
       this.setTooltip("");
       this.setHelpUrl("");
   }
@@ -229,13 +287,11 @@ Blockly.Blocks['fun_robo_led_left'] = {
 Blockly.Python['fun_robo_led_left'] = function(block) {
     var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    
-    strout = 'robo.led_left(' + value_name + ')';
+    let strout = 'robo.led_left(' + value_name + ')';
     var code = strout + '\n';
     return code;
 };
 //>>
-
 
 //<<
 Blockly.Blocks['fun_robo_led_right'] = {
@@ -250,16 +306,15 @@ Blockly.Blocks['fun_robo_led_right'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
       this.setTooltip("");
       this.setHelpUrl("");
     }
 };
-
 Blockly.Python['fun_robo_led_right'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  strout = 'robo.led_right(' + value_name + ')';
+  let strout = 'robo.led_right(' + value_name + ')';
   var code = strout + '\n';
   return code;
 };
@@ -274,7 +329,7 @@ Blockly.Blocks['fun_robo_stop'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -298,7 +353,7 @@ Blockly.Blocks['fun_robo_beep'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -321,7 +376,7 @@ Blockly.Blocks['fun_robo_get_ip'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -341,7 +396,7 @@ Blockly.Blocks['fun_robo_conn_ap'] = {
     init: function() {
       this.appendDummyInput()
           .appendField("robo.conn_ap( ssdi=");
-      this.appendValueInput("ssdi")
+      this.appendValueInput("ssid")
           .setCheck("String");
       this.appendDummyInput()
           .appendField(",")
@@ -353,7 +408,7 @@ Blockly.Blocks['fun_robo_conn_ap'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
    this.setTooltip("");
    this.setHelpUrl("");
     }
@@ -362,7 +417,7 @@ Blockly.Python['fun_robo_conn_ap'] = function(block) {
   var value_ssid = Blockly.Python.valueToCode(block, 'ssid', Blockly.Python.ORDER_ATOMIC);
   var value_pw = Blockly.Python.valueToCode(block, 'pw', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  strout = 'robo.conn_ap(' + value_ssid + ', ' + value_pw + ')';
+  let strout = 'robo.conn_ap(' + value_ssid + ', ' + value_pw + ')';
   var code = strout + '\n';
   return code;
 };
@@ -383,7 +438,7 @@ Blockly.Blocks['fun_robo_set_hotspot'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
       this.setTooltip("");
       this.setHelpUrl("");
     }
@@ -392,7 +447,7 @@ Blockly.Blocks['fun_robo_set_hotspot'] = {
 Blockly.Python['fun_robo_set_hotspot'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  strout = 'robo.set_hotspot(' + value_name + ')';
+  let strout = 'robo.set_hotspot(' + value_name + ')';
   var code = strout + '\n';
   return code;
 };
@@ -420,7 +475,7 @@ Blockly.Blocks['fun_robo_dir_clean'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
       this.setTooltip("");
       this.setHelpUrl("");
     }
@@ -476,7 +531,7 @@ Blockly.Blocks['fun_robo_hp_con'] = {
       this.setInputsInline(true);  // 모든 입력을 한 줄로 표시
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);  // 블록 색상 설정
+      this.setColour(colorVal);  // 블록 색상 설정
       this.setTooltip("Calls robo.hp_con with the specified parameters.");
       this.setHelpUrl("");
     }

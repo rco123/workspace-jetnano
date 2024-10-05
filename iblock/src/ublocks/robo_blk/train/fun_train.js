@@ -1,13 +1,14 @@
 import Blockly from "blockly";
 import 'blockly/python';
 
+const colorVal = "#5050FF"
+
 // Function Name
 export var fun_train_xml =
-`<category name="TRAIN" colour="%{BKY_VARIABLES_HUE}">
+`<category name="TRAIN" colour="${colorVal}">
 
     <block type="fun_train_import"></block>
     <block type="fun_train_control"></block>
-
     <block type="fun_train_lane"></block>
     <block type="fun_train_mark"></block>
 
@@ -22,7 +23,7 @@ Blockly.Blocks['fun_train_import'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
    this.setTooltip("");
    this.setHelpUrl("");
     }
@@ -44,7 +45,7 @@ Blockly.Blocks['fun_train_control'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -68,7 +69,7 @@ Blockly.Blocks['fun_train_lane'] = {
         .appendField(")");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -91,7 +92,7 @@ Blockly.Blocks['fun_train_mark'] = {
         .appendField(")");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }

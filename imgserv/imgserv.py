@@ -6,7 +6,6 @@ import glob
 import cv2
 import base64
 
-
 # WebSocket 서버 생성
 async def send_video(websocket, path):
 

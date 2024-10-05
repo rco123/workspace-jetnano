@@ -1,0 +1,11 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_robo_import" id="#t%{.$vjz%[6O`WyBK-h" x="262" y="88">
+    <next>
+      <block type="fun_robo_control" id="~8@}VXr?TsoHn9/F7i#-">
+        <next>
+          <block type="fun_robo_get_ip" id="!6R2K^mT^TDZd;!j#l+4"></block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

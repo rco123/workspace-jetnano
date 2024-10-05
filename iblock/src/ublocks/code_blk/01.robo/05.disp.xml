@@ -1,0 +1,51 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="PoKQy.sT?k-De}Hf-V09">img</variable>
+  </variables>
+  <block type="fun_robo_import" id="4I`.Zj)1?wqGr+-x#4f." x="237" y="238">
+    <next>
+      <block type="fun_robo_control" id="oTJF_[3NH%kMDzjY|J75">
+        <next>
+          <block type="controls_repeat_ext" id="vo);8fbto~5`(oo(VF*T">
+            <value name="TIMES">
+              <shadow type="math_number" id="Le)7F;jyz9I9a/Q{v+Q4">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="variables_set" id="AT%6;rCO!%^u{O45;~ng">
+                <field name="VAR" id="PoKQy.sT?k-De}Hf-V09">img</field>
+                <value name="VALUE">
+                  <block type="fun_robo_get_img" id="R?wzq=UpW?{h0F(zE@qI"></block>
+                </value>
+                <next>
+                  <block type="fun_robo_dis_img_ang" id="48-Im1cm[P)ajcv1}xK[">
+                    <value name="IMG">
+                      <block type="variables_get" id="#`BPLEman#rn`8)]u$cm">
+                        <field name="VAR" id="PoKQy.sT?k-De}Hf-V09">img</field>
+                      </block>
+                    </value>
+                    <value name="ANGLE">
+                      <block type="math_number" id="OL/QXbyN#)=l?M64Q[{U">
+                        <field name="NUM">10</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="fun_robo_delay" id="SAH@5NwfWvyg9Fl|o:)+">
+                        <value name="NAME">
+                          <block type="math_number" id="WuTKZsoIQ@cJXZY3hfe8">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

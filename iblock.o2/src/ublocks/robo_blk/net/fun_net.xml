@@ -1,0 +1,12 @@
+<category name="NET" colour="%{BKY_VARIABLES_HUE}">
+    <block type="fun_net"></block>
+    <block type="fun_net_read_angle"></block>
+    <block type="fun_net_read_speed"></block> 
+    <block type="fun_net_check_event"></block>
+    <block type="fun_net_key_read"></block>
+    
+    <block type="fun_net_call_time"></block>
+    <block type="fun_net_check_end_time"></block>
+    <block type="fun_net_reset_end_time"></block>
+     
+</category>

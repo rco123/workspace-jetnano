@@ -1,9 +1,10 @@
 import Blockly from "blockly";
 import 'blockly/python';
 
+const colorVal = "#2ce12c"
 // Function Name
 export var fun_lane_xml =
-`<category name="LANE" colour="%{BKY_VARIABLES_HUE}">
+`<category name="LANE" colour="${colorVal}">
 
     <block type="fun_lane_import"></block>
     <block type="fun_lane_control"></block>
@@ -21,7 +22,7 @@ Blockly.Blocks['fun_lane_import'] = {
       this.setInputsInline(true);
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
-      this.setColour(230);
+      this.setColour(colorVal);
    this.setTooltip("");
    this.setHelpUrl("");
     }
@@ -43,7 +44,7 @@ Blockly.Blocks['fun_lane_control'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -64,7 +65,7 @@ Blockly.Blocks['fun_lane_load_model'] = {
         .appendField("ailane.load_model( )");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -81,12 +82,14 @@ Blockly.Python['fun_lane_load_model'] = function(block) {
 Blockly.Blocks['fun_lane_det'] = {
   init: function() {
     this.appendValueInput("NAME")
-        .appendField("ailane.det(epoch=");
+        .appendField("ailane.det(img=");
     this.appendDummyInput()
         .appendField(")");
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(230);
+    
+        this.setInputsInline(true);
+    this.setOutput(true, null);
+        
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -94,9 +97,8 @@ Blockly.Blocks['fun_lane_det'] = {
 Blockly.Python['fun_lane_det'] = function(block) {
   var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = "ailane.det(" + value_name + ")\n";
-  return code;
+  var code = "ailane.det(" + value_name + ")";
+  return [code, Blockly.Python.ORDER_NONE];
+  
 };
 //>
-
-

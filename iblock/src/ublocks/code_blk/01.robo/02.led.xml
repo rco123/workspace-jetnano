@@ -1,0 +1,74 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_robo_import" id="aH`.+$PkVCRrju(4PbPP" x="287" y="137">
+    <next>
+      <block type="fun_robo_control" id="}OYTIoQye7VxDY`c((Yb">
+        <next>
+          <block type="controls_repeat_ext" id="W!@2zM!i4-TA-OIxT#0;">
+            <value name="TIMES">
+              <shadow type="math_number" id="m1dZ5S85|+JY(bLM*4,_">
+                <field name="NUM">10</field>
+              </shadow>
+            </value>
+            <statement name="DO">
+              <block type="fun_robo_led_left" id="rm_sm25,=E~KFrkoiq:/">
+                <value name="NAME">
+                  <block type="math_number" id=":^-SS?Mk;u;-zrE0*KqE">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="fun_robo_led_right" id="=lV.br);d}Q*xcGYNVd+">
+                    <value name="NAME">
+                      <block type="math_number" id="8yd_ww$m|S-A/%88?;=n">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="fun_robo_delay" id="}lE}Ja.bhm[`x#H?,B%B">
+                        <value name="NAME">
+                          <block type="math_number" id="f(c)lQKyYb]?k?!qBWKO">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="fun_robo_led_left" id="CQ;R6j5`2J|Y/yq8YjC}">
+                            <value name="NAME">
+                              <block type="math_number" id="9MI@JpS,ZQH[{6n1e{BE">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="fun_robo_led_right" id="H3bU6/yDevp=Edwvgv,I">
+                                <value name="NAME">
+                                  <block type="math_number" id=":2pMo^h?.1H{H_SkPTC(">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="fun_robo_delay" id="SAH@5NwfWvyg9Fl|o:)+">
+                                    <value name="NAME">
+                                      <block type="math_number" id="WuTKZsoIQ@cJXZY3hfe8">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="fun_robo_stop" id="]$)MS+eE[89U3Tg^g1iX"></block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

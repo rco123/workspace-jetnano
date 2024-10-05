@@ -1,8 +1,10 @@
 import Blockly from "blockly";
 import 'blockly/python';
 
+const colorVal = 230
+
 export var fun_user_xml = 
-`<category name="USER" colour="%{BKY_VARIABLES_HUE}">
+`<category name="USER" colour="${colorVal}">
   <block type="fun_user"> </block>
   <block type="fun_user_input"> </block>
   
@@ -19,7 +21,7 @@ Blockly.Blocks['fun_import_time'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -38,7 +40,7 @@ Blockly.Blocks['fun_time_time'] = {
         .appendField("time.time( )");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -61,7 +63,7 @@ Blockly.Blocks['fun_user'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -81,7 +83,7 @@ Blockly.Blocks['fun_user_input'] = {
         .appendField("user_input")
         .appendField(new Blockly.FieldTextInput("..."), "user_input");
     this.setOutput(true, null);
-    this.setColour(230);
+    this.setColour(colorVal);
   this.setTooltip("");
   this.setHelpUrl("");
   }
