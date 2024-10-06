@@ -1,0 +1,17 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_train_import" id="*lm()]6/k|y7qMhC8=na" x="163" y="262">
+    <next>
+      <block type="fun_train_control" id="ZZwYgdRs#?R%#$QTVP|4">
+        <next>
+          <block type="fun_train_mark" id="3SJg|X0V1nEB.vf9VcqD">
+            <value name="NAME">
+              <block type="math_number" id="XhO0v+)g(B:Li,+=ZZpB">
+                <field name="NUM">50</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

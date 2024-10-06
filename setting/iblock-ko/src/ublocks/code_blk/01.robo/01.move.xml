@@ -1,0 +1,34 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="fun_robo_import" id="aH`.+$PkVCRrju(4PbPP" x="238" y="238">
+    <next>
+      <block type="fun_robo_control" id="}OYTIoQye7VxDY`c((Yb">
+        <next>
+          <block type="fun_robo_move" id="$Okt3I:kt~+?E:%W2AN4">
+            <value name="angle">
+              <block type="math_number" id="Xez}ZFW.6?lvQ#k-cp]/">
+                <field name="NUM">10</field>
+              </block>
+            </value>
+            <value name="speed">
+              <block type="math_number" id="+B2HwKBJirf6#@WbY+_F">
+                <field name="NUM">20</field>
+              </block>
+            </value>
+            <next>
+              <block type="fun_robo_delay" id="}lE}Ja.bhm[`x#H?,B%B">
+                <value name="NAME">
+                  <block type="math_number" id="f(c)lQKyYb]?k?!qBWKO">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="fun_robo_stop" id="]$)MS+eE[89U3Tg^g1iX"></block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
