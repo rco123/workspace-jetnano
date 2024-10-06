@@ -40,7 +40,7 @@ export var xml_basic_head =
       <block type="controls_forEach"></block>
       <block type="controls_flow_statements"></block>
     </category>
-    <category name="MATH" colour="%{BKY_MATH_HUE}">
+    <category name="계산문" colour="%{BKY_MATH_HUE}">
       <block type="math_number">
         <field name="NUM">123</field>
       </block>
