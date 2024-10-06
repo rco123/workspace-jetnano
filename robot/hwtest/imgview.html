@@ -1,0 +1,43 @@
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Video Stream</title>
+</head>
+<body>
+    <h1>WebSocket Video Stream</h1>
+    <img id="videoStream" alt="Video Stream will appear here">
+
+    <script>
+        // WebSocket URL 설정 (Jetson Nano IP 주소와 포트 번호로 수정)
+        const wsUrl = 'ws://192.168.0.27:8765';
+
+        // WebSocket 객체 생성
+        const videoSocket = new WebSocket(wsUrl);
+
+        // WebSocket 연결이 열렸을 때
+        videoSocket.onopen = function(event) {
+            console.log('WebSocket 연결이 열렸습니다.');
+        };
+
+        // WebSocket으로부터 메시지를 수신할 때
+        videoSocket.onmessage = function(event) {
+            // 수신한 메시지를 이미지 데이터로 설정
+            const videoElement = document.getElementById('videoStream');
+            videoElement.src = 'data:image/jpeg;base64,' + event.data;
+        };
+
+        // WebSocket 연결이 종료되었을 때
+        videoSocket.onclose = function(event) {
+            console.log('WebSocket 연결이 종료되었습니다.');
+        };
+
+        // WebSocket에서 오류가 발생했을 때
+        videoSocket.onerror = function(error) {
+            console.error('WebSocket 오류:', error);
+        };
+    </script>
+</body>
+</html>
