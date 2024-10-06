@@ -20,6 +20,7 @@ class mark_control:
 
         return _val
 
+
         
 if __name__ == "__main__":
 
@@ -27,7 +28,7 @@ if __name__ == "__main__":
 
     aimark.load_model()
 
-    imgs = glob.glob("/home/jetson/share/mk/**/*.jpg")
+    imgs = glob.glob("/home/jetson/share/mark/**/*.jpg")
 
     img = cv2.imread(imgs[0])
 

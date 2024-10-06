@@ -161,7 +161,7 @@ async def image_server(websocket, path):
         print(f"Error: {e}")
 
 async def main():
-    async with serve(image_server, "0.0.0.0", 8766):
+    async with serve(image_server, "0.0.0.0", 3001):
         await asyncio.Future()  # run forever
 
 if __name__ == '__main__':

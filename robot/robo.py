@@ -17,6 +17,7 @@ import os
 import json
 import numpy as np
 import math
+import threading
 
 
 from util import del_dir
@@ -69,10 +70,16 @@ class robot_control:
 
     def __init__(self):
 
+        self.command_client_connected = False
+        self.command_lock = threading.Lock()
+        self.current_command = None  # 현재 명령을 저장하기 위한 변수
+
+
         try:
             self.check = sarray.attach(SHM_NAME)
         except:
             pass
+
 
         signal.signal(signal.SIGINT, self.sig_callback)
         signal.signal(signal.SIGTERM, self.sig_callback)
@@ -108,6 +115,10 @@ class robot_control:
             return
         else:
             print("카메라가 정상적으로 열렸습니다.")
+
+        # WebSocket 서버를 위한 변수 초기화
+        self.ws_loop = None
+        self.ws_thread = None
 
 
     def get_img(self):
@@ -218,43 +229,35 @@ class robot_control:
 
         close_i2c_bus(i2c_bus)
 
+
+
     async def receive_command(self, websocket, path):
+        print("start receive_command")
+
         if self.command_client_connected:
-            # 기존 클라이언트가 연결되어 있음을 알리고 연결 종료
-            #await websocket.send(json.dumps({"error": "이미 명령 서버에 연결된 클라이언트가 있습니다."}))
             await websocket.close()
             print(f"추가 클라이언트가 명령 서버에 연결하려 했으나 거부되었습니다: {websocket.remote_address}")
             return
 
         self.command_client_connected = True
         print(f"명령 WebSocket 클라이언트가 연결되었습니다: {websocket.remote_address}")
-
-        # speed setting when connection is comming
         self.speed = self.cspeed
-
 
         try:
             async for message in websocket:
                 print(f"수신된 메시지: {message}")
                 try:
-                    # JSON 형식의 명령어를 파싱
                     data = json.loads(message)
                     command = data.get("command", "")
-                    value = data.get("value", 0)
+                    angle = data.get("angle", 0) * self.asens
 
-                    # 수신된 명령어에 따라 동작 처리
-                    if command == "move":
-                        angle = data.get("angle", 0) * self.asens  # Apply asens
-
-                        speed = self.speed  # Use self.speed set in hp_con
-
-                        self.move(angle, speed)
-                    elif command == "stop":
-                        self.speed = 0
-                        self.stop()
-                        
-                    else:
-                        print("알 수 없는 명령어입니다.")
+                    with self.command_lock:
+                        if command == "move":
+                            self.current_command = ("move", angle)
+                        elif command == "stop":
+                            self.current_command = ("stop", 0)
+                        else:
+                            print("알 수 없는 명령어입니다.")
                 except json.JSONDecodeError:
                     print("잘못된 JSON 형식의 메시지입니다.")
         except websockets.exceptions.ConnectionClosed as e:
@@ -264,16 +267,71 @@ class robot_control:
         finally:
             self.command_client_connected = False
             print(f"명령 WebSocket 클라이언트 연결 상태가 해제되었습니다: {websocket.remote_address}")
-            if websocket :
+
+            if websocket:
                 await websocket.close()
 
-    async def send_video(self):
-        print("start video capture.")
+
+    def start_ws_server(self):
+        asyncio.set_event_loop(self.ws_loop)
+        server = websockets.serve(self.receive_command, "0.0.0.0", 8766)
+        print(server)
+        self.ws_loop.run_until_complete(server)
+        print("WebSocket 서버가 시작되었습니다.")
+        self.ws_loop.run_forever()
+
+
+    def hp_con(self, sdir, cspeed, idiv, asens):
+
+        self.sdir = sdir
+        self.idiv = idiv
+        self.cspeed = cspeed
+        self.asens = asens
+
+        if "lane" in sdir:  
+
+            self.dir_clean(sdir)
+
+            self.save_dir = os.path.join("/home/jetson/share/lane", self.sdir)
+            os.makedirs(self.save_dir, exist_ok=True)
+
+            print(f"이미지저장디렉토리: {self.save_dir}")
+        elif "mark" in sdir:
+
+            self.dir_clean(sdir)
+
+            # Set save directory
+            self.save_dir = os.path.join("/home/jetson/share/mark", self.sdir)
+            os.makedirs(self.save_dir, exist_ok=True)
+            print(f"이미지저장디렉토리: {self.save_dir}")
+
+        # Initialize frame counters
+        self.frame_count = 0
+        self.save_count = 0
+
+
+        # WebSocket 서버를 위한 이벤트 루프와 스레드 초기화
+        self.ws_loop = asyncio.new_event_loop()
+        self.ws_thread = threading.Thread(target=self.start_ws_server, daemon=True)
+        self.ws_thread.start()
+
         try:
             while True:
                 frame = self.get_img()
 
-                if self.command_client_connected == True:
+                with self.command_lock:
+                    if self.current_command:
+                        command, value = self.current_command
+                        if command == "move":
+                            angle = value
+                            speed = self.cspeed
+                            self.move(angle, speed)
+                        elif command == "stop":
+                            self.speed = 0
+                            self.stop()
+                        self.current_command = None  # 명령 처리 후 초기화
+
+                if self.command_client_connected:
                     self.frame_count += 1
                     # Save every idiv-th frame
                     if self.frame_count % self.idiv == 0 and self.speed != 0:
@@ -285,58 +343,36 @@ class robot_control:
                             filename = f"{self.save_count:03d}_{self.angle:03d}.jpg"
                             filepath = os.path.join(self.save_dir, filename)
                             cv2.imwrite(filepath, frame)
-                            print(f"프레임 저장: {filepath}")
+                            print(f"fsave:{filepath}")
                             self.save_count += 1
 
+                            if self.save_count > 999:
+                                self.save_count = 0
+
                 self.dis_img(frame)
-                await asyncio.sleep(0.03)
-
+                time.sleep(0.05)
+        except KeyboardInterrupt:
+            print("hp_con 함수가 중단되었습니다.")
         finally:
-            print("end video capture.")
+            print("hp_con 종료됨")
+            self.stop()
+            # WebSocket 이벤트 루프 종료
+            if self.ws_loop.is_running():
+                self.ws_loop.call_soon_threadsafe(self.ws_loop.stop)
+                self.ws_thread.join()
+                print("WebSocket 서버가 종료되었습니다.")
 
-
-    async def start_servers(self):
-
-        try:
-            # 웹소켓 서버 시작
-            print("웹소켓 서버가 시작됩니다.")
-            #video_server = await websockets.serve(self.send_video, '0.0.0.0', 8765)
-            video_task = asyncio.create_task(self.send_video())
-
-            command_server = await websockets.serve(self.receive_command, '0.0.0.0', 8766)
-
-            print("웹소켓 서버가 정상적으로 시작되었습니다.")
-
-            # 서버를 계속 실행시키기 위해 Future 대기
-            await asyncio.Future()
-
-        except Exception as e:
-            print(f"서버 시작 중 오류 발생: {e}")
 
     def dir_clean(self, dir):
-        _dir = "/home/jetson/share/ls"
+        
+        if "lane" in dir:
+            _dir = "/home/jetson/share/lane"
+        if "mark" in dir:
+            _dir = "/home/jetson/share/mark"
+
         path = os.path.join(_dir, dir)
         del_dir(path)
 
-
-    def hp_con(self, sdir, cspeed, idiv, asens):
-        self.sdir = sdir
-        self.idiv = idiv
-        self.cspeed = cspeed
-        self.asens = asens
-
-        # Set save directory
-        self.save_dir = os.path.join("/home/jetson/share/ls", self.sdir)
-        os.makedirs(self.save_dir, exist_ok=True)
-        print(f"이미지 저장 디렉토리: {self.save_dir}")
-
-        # Initialize frame counters
-        self.frame_count = 0
-        self.save_count = 0
-
-
-        # Start the WebSocket servers
-        asyncio.run(self.start_servers())
 
     def sig_callback(self, signal, frame):
 
@@ -450,24 +486,6 @@ class robot_control:
         import subprocess
 
 
-        # 2. Hotspot 연결 중지
-#        try:
-#            subprocess.run(["sudo", "nmcli", "con", "down", "Hotspot"], check=True)
-#            print("Hotspot has been brought down.")
-#        except subprocess.CalledProcessError as e:
-#            print("Error stopping Hotspot:", e.stderr)
-#
-
-#        # nmcli 명령어 생성
-#        command = ["sudo", "ifconfig", "wlan0", "up" ]
-#        # 명령어 실행
-#        try:
-#            result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-#            print("Connection successful:", result.stdout)
-#        except subprocess.CalledProcessError as e:
-#            print("Error occurred:", e.stderr)
-#
-
 
         # nmcli 명령어 생성
         command = ["sudo", "nmcli", "device", "disconnect", "wlan0" ]
@@ -560,7 +578,7 @@ if __name__ == "__main__":
     #robo.hp_con("lane0",3, 20, 1)
     # Example usage of hp_con
     # Replace 'lane0', 3, 100, 1 with desired parameters
-    # robo.hp_con("lane0", 3, 100, 1)
+    robo.hp_con("lane0", 3, 1, 1)
 
     # To keep the main thread alive if not using hp_con immediately
     #try:

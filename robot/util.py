@@ -20,7 +20,6 @@ def gstreamer_pipeline(
                 capture_width, capture_height, framerate, flip_method, display_width, display_height))
 
 
-
 def del_dir(directory):
     if os.path.exists(directory):
         shutil.rmtree(directory)

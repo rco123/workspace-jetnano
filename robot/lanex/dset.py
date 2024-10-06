@@ -87,8 +87,7 @@ class ls_dataset(torch.utils.data.Dataset):
 BATCH_SIZE = 1
 if __name__ == "__main__" :
 
-
-    dataset = ls_dataset('/home/jetson/share/ls')
+    dataset = ls_dataset('/home/jetson/share/lane')
 
     train_loader = torch.utils.data.DataLoader(
             dataset,

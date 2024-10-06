@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
     print('Start training')
 
-    dataset_loc = "/home/jetson/share/mk"
+    dataset_loc = "/home/jetson/share/mark"
 
     # Train the model and get epoch losses and accuracies
     model, epoch_losses, epoch_accuracies = train_model(epochs, batch, dataset_loc, batch)

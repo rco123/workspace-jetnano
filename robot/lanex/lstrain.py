@@ -13,7 +13,7 @@ from lanex.dset import ls_dataset
 def train_model(epochs_no, batch_no):
 
 
-    dir_path = "/home/jetson/share/ls"
+    dir_path = "/home/jetson/share/lane"
     dataset = ls_dataset(dir_path)
     device = torch.device('cuda')  # If you have a GPU, you can use 'cuda' instead of 'cpu'
     output_dim = 1  # angle coordinate for each category

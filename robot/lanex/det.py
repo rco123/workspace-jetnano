@@ -85,12 +85,12 @@ class lane_det():
 
 if __name__ == '__main__' :
 
-    imgs = glob.glob("/home/jetson/share/ls/r18/**/*.jpg")
+    imgs = glob.glob("/home/jetson/share/lane/**/*.jpg")
 
     print(imgs)
 
     img = cv2.imread(imgs[0])
-    det = lane_det_nc()
+    det = lane_det()
 
     print('load model')
     det.load_model('cnc.pt')

@@ -84,7 +84,7 @@ class aiLane():
 
 if __name__ == '__main__' :
 
-    imgs = glob.glob("/home/jetson/share/ls/r18/**/*.jpg")
+    imgs = glob.glob("/home/jetson/share/lane/**/*.jpg")
 
     print(imgs)
 

@@ -80,7 +80,7 @@ class aiMark():
 if __name__ == '__main__' :
 
 
-    imgs = glob.glob("/home/jetson/share/mk/**/*.jpg")
+    imgs = glob.glob("/home/jetson/share/mark/**/*.jpg")
 
     aimark = aiMark()
 

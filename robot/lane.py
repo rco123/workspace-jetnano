@@ -26,7 +26,7 @@ if __name__ == "__main__":
     ailane = lane_control()
     amodel = ailane.load_model()
 
-    img = cv2.imread("/home/jetson/share/ls/lane0/000_020.jpg")
+    img = cv2.imread("/home/jetson/share/lane/lane0/000_020.jpg")
 
     elap = time.time()
 
