@@ -1,6 +1,8 @@
 import Blockly from "blockly";
 import 'blockly/python';
 
+import roboImage from '../../../images/fff.png';
+
 const colorVal = 230
 
 export var fun_user_xml = 
@@ -13,9 +15,22 @@ export var fun_user_xml =
 
 </category>`
 
+// 이미지 필드를 추가하는 함수 정의
+function appendRoboImage(block) {
+  block.appendDummyInput()
+    .appendField(new Blockly.FieldImage(
+      roboImage,
+      25,  // 이미지 너비
+      25,  // 이미지 높이
+      "*"
+    ));
+}
 
 Blockly.Blocks['fun_import_time'] = {
   init: function() {
+        
+  appendRoboImage(this);  // 함수 호출로 이미지 추가
+
     this.appendDummyInput()
         .appendField('시간불러오기');
     this.setInputsInline(true);
@@ -36,6 +51,7 @@ Blockly.Python['fun_import_time'] = function(block) {
 
 Blockly.Blocks['fun_time_time'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
     this.appendDummyInput()
         .appendField("시간.현재시간( )");
     this.setInputsInline(true);
@@ -57,6 +73,7 @@ Blockly.Python['fun_time_time'] = function(block) {
 
 Blockly.Blocks['fun_user'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
     this.appendDummyInput()
         .appendField("사용자코드 ")
         .appendField(new Blockly.FieldTextInput("..."), "code");
@@ -79,9 +96,11 @@ Blockly.Python['fun_user'] = function(block) {
 
 Blockly.Blocks['fun_user_input'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
     this.appendDummyInput()
         .appendField("사용자입력")
         .appendField(new Blockly.FieldTextInput("..."), "user_input");
+    this.setInputsInline(true);
     this.setOutput(true, null);
     this.setColour(colorVal);
   this.setTooltip("");

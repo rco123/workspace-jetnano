@@ -2,7 +2,11 @@
 import Blockly from "blockly";
 import 'blockly/python';  
 
-const colorVal = "#cc3b3b"
+import roboImage from '../../../images/aaa.png';
+
+//import roboImage from './blkIcoRobo.png';
+//const colorVal = "#cc3b3b"
+const colorVal = "#d97878"
 
 
 export var fun_robo_xml = `
@@ -35,11 +39,24 @@ export var fun_robo_xml = `
 </category>`;
 
 
+// 이미지 필드를 추가하는 함수 정의
+function appendRoboImage(block) {
+  block.appendDummyInput()
+    .appendField(new Blockly.FieldImage(
+      roboImage,
+      25,  // 이미지 너비
+      25,  // 이미지 높이
+      "*"
+    ));
+}
 
 
 //<
 Blockly.Blocks['fun_robo_import'] = {
   init: function() {
+
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
     this.appendDummyInput()
         .appendField("로보컨트롤박스가져오기");
     this.setInputsInline(true);
@@ -62,6 +79,8 @@ return code;
 //<<
 Blockly.Blocks['fun_robo_control'] = {
     init: function() {
+      appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보생성");
       this.setInputsInline(true);
@@ -84,6 +103,8 @@ Blockly.Python['fun_robo_control'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_move'] = {
     init: function() {
+      appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.이동( 각도=");
       this.appendValueInput("angle")
@@ -117,6 +138,8 @@ Blockly.Python['fun_robo_move'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_delay'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.지연(시간=");
       this.appendValueInput("NAME")
@@ -145,6 +168,8 @@ Blockly.Blocks['fun_robo_delay'] = {
 //<<
 Blockly.Blocks['fun_robo_get_img'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.영상가져오기(");
       this.appendDummyInput()
@@ -172,6 +197,8 @@ Blockly.Blocks['fun_robo_get_img'] = {
 //<<
 Blockly.Blocks['fun_robo_dis_img'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.영상출력(이미지=");
       
@@ -204,6 +231,8 @@ Blockly.Python['fun_robo_dis_img'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_dis_img_ang'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.각도영상출력(");
 
@@ -241,6 +270,8 @@ Blockly.Python['fun_robo_dis_img_ang'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_led_left'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.왼쪽깜빡이(");
       this.appendValueInput("NAME")
@@ -267,6 +298,8 @@ Blockly.Python['fun_robo_led_left'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_led_right'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.오른쪽깜빡이(");
       this.appendValueInput("NAME")
@@ -295,6 +328,8 @@ Blockly.Python['fun_robo_led_right'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_stop'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
     this.appendDummyInput()
         .appendField("로보.정지( )");
     this.setInputsInline(true);
@@ -319,6 +354,8 @@ return code;
 //<<
 Blockly.Blocks['fun_robo_beep'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
     this.appendDummyInput()
         .appendField("로보.알람소리( )");
     this.setInputsInline(true);
@@ -342,6 +379,8 @@ return code;
 //<<
 Blockly.Blocks['fun_robo_get_ip'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
     this.appendDummyInput()
         .appendField("로보.인터넷주소()");
     this.setInputsInline(true);
@@ -365,6 +404,8 @@ return code;
 //<<
 Blockly.Blocks['fun_robo_conn_ap'] = {
     init: function() {
+      appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.와이파이접속(SSID=");
       this.appendValueInput("ssid")
@@ -399,6 +440,8 @@ Blockly.Python['fun_robo_conn_ap'] = function(block) {
 //<<
 Blockly.Blocks['fun_robo_set_hotspot'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.핫스팟설정(");
       this.appendValueInput("NAME")
@@ -429,6 +472,8 @@ Blockly.Python['fun_robo_set_hotspot'] = function(block) {
 
 Blockly.Blocks['fun_robo_dir_clean'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.디렉토리청소(")
           .appendField(new Blockly.FieldDropdown([
@@ -464,6 +509,8 @@ Blockly.Python['fun_robo_dir_clean'] = function(block) {
 // 블록 정의
 Blockly.Blocks['fun_robo_hp_con'] = {
   init: function() {
+    appendRoboImage(this);  // 함수 호출로 이미지 추가
+    
       this.appendDummyInput()
           .appendField("로보.핸드폰제어(");
       

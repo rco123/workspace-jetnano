@@ -1,6 +1,9 @@
 import Blockly from "blockly";
 import 'blockly/python';
 
+
+import roboImage from '../../../images/ddd.png';
+
 const colorVal = "#5050FF"
 
 // Function Name
@@ -15,9 +18,24 @@ export var fun_train_xml =
 </category>`
 
 
+// 이미지 필드를 추가하는 함수 정의
+function appendRoboImage(block) {
+  block.appendDummyInput()
+    .appendField(new Blockly.FieldImage(
+      roboImage,
+      25,  // 이미지 너비
+      25,  // 이미지 높이
+      "*"
+    ));
+}
+
+
+
 //<
 Blockly.Blocks['fun_train_import'] = {
     init: function() {
+      appendRoboImage(this);
+    
       this.appendDummyInput()
           .appendField("학습컨트롤박스가져오기");
       this.setInputsInline(true);
@@ -40,6 +58,7 @@ Blockly.Python['fun_train_import'] = function(block) {
 //<
 Blockly.Blocks['fun_train_control'] = {
   init: function() {
+    appendRoboImage(this);
     this.appendDummyInput()
         .appendField("학습생성");
     this.setInputsInline(true);
@@ -62,6 +81,7 @@ Blockly.Python['fun_train_control'] = function(block) {
 //<
 Blockly.Blocks['fun_train_lane'] = {
   init: function() {
+    appendRoboImage(this);
     this.appendValueInput("NAME")
         .setCheck("Number")
         .appendField("학습.도로(반복수=");
@@ -85,6 +105,7 @@ Blockly.Python['fun_train_lane'] = function(block) {
 //<
 Blockly.Blocks['fun_train_mark'] = {
   init: function() {
+    appendRoboImage(this);
     this.appendValueInput("NAME")
         .setCheck("Number")
         .appendField("학습.마크(반복수=");

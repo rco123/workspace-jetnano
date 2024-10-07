@@ -1,6 +1,8 @@
 import Blockly from "blockly";
 import 'blockly/python';
 
+import roboImage from '../../../images/ccc.png';
+
 const colorVal = "#2ce12c"
 // Function Name
 export var fun_lane_xml =
@@ -14,9 +16,23 @@ export var fun_lane_xml =
 </category>`
 
 
+// 이미지 필드를 추가하는 함수 정의
+function appendRoboImage(block) {
+  block.appendDummyInput()
+    .appendField(new Blockly.FieldImage(
+      roboImage,
+      25,  // 이미지 너비
+      25,  // 이미지 높이
+      "*"
+    ));
+}
+
+
 //<
 Blockly.Blocks['fun_lane_import'] = {
     init: function() {
+      appendRoboImage(this);
+    
       this.appendDummyInput()
           .appendField("도로컨트롤박스가져오기");
       this.setInputsInline(true);
@@ -39,6 +55,7 @@ Blockly.Python['fun_lane_import'] = function(block) {
 //<
 Blockly.Blocks['fun_lane_control'] = {
   init: function() {
+    appendRoboImage(this);
     this.appendDummyInput()
         .appendField("도로생성");
     this.setInputsInline(true);
@@ -61,8 +78,10 @@ Blockly.Python['fun_lane_control'] = function(block) {
 //<
 Blockly.Blocks['fun_lane_load_model'] = {
   init: function() {
+    appendRoboImage(this);
     this.appendDummyInput()
         .appendField("도로.학습모델불러오기( )");
+    this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(colorVal);
@@ -81,6 +100,7 @@ Blockly.Python['fun_lane_load_model'] = function(block) {
 //<
 Blockly.Blocks['fun_lane_det'] = {
   init: function() {
+    appendRoboImage(this);
     this.appendValueInput("NAME")
         .appendField("도로.감지(이미지=");
     this.appendDummyInput()
